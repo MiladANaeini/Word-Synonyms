@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import data from "../components/common/data.json";
 import ExistingSynonyms from "../components/ExistingSynonyms";
 import AddSynonymForm from "../components/AddSynonym";
+import { Link } from "react-router-dom";
 
 const SearchPage = () => {
   const [word, setWord] = useState("");
   const [synonyms, setSynonyms] = useState(null);
+  const [synonymId, setSynonymId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -23,6 +25,7 @@ const SearchPage = () => {
     setSynonyms(
       data.words.filter((element) => element.groupId === synonym.groupId)
     );
+    setSynonymId(synonym.groupId);
     setIsLoading(false);
   };
   return (
@@ -39,14 +42,22 @@ const SearchPage = () => {
             onChange={handleChange}
             value={word}
           />
-          <button onClick={searchWord} className="btn">
-            Search
-          </button>
         </label>
+        <button onClick={searchWord} className="btn mt-2">
+          Search
+        </button>
         {synonyms && (
           <>
             {synonyms.length ? (
-              <ExistingSynonyms synonyms={synonyms} isLoading={isLoading} />
+              <>
+                <Link
+                  to={`/add/${synonymId}`}
+                  state={{ word: word, prevSynonyms: synonyms }}
+                >
+                  <button className="btn mt-2">Add Synonyms</button>
+                </Link>
+                <ExistingSynonyms synonyms={synonyms} isLoading={isLoading} />
+              </>
             ) : (
               <AddSynonymForm word={word} />
             )}

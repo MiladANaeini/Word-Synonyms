@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import data from "../components/common/data.json";
 import { Link } from "react-router-dom";
@@ -10,9 +10,15 @@ const AddPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation();
-  const { word } = location.state;
+  const { word, prevSynonyms } = location.state;
   const path = location.pathname.split("/");
   const groupId = path[path.length - 1];
+
+  useEffect(() => {
+    if (prevSynonyms) {
+      setSynonyms(prevSynonyms);
+    }
+  }, []);
 
   const handleChange = (e) => {
     setNewWord(e.target.value);

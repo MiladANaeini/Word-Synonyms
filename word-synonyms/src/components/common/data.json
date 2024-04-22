@@ -1,12 +1,12 @@
 {
-    "words":[
-        {
-           "value":"happy",
-            "groupId":1
-        },
-        {
-            "value":"glad",
-            "groupId":1
-        }
-    ]
+  "words": [
+    {
+      "value": "happy",
+      "groupId": "1"
+    },
+    {
+      "value": "glad",
+      "groupId": "1"
+    }
+  ]
 }
