@@ -10,7 +10,7 @@ const AppRoutes = () => {
   const navigate = useNavigate();
   return (
     <Suspense fallback={null}>
-      <Routes basenase="/">
+      <Routes basename="/">
         <Route path="/homepage" element={<HomePage navigate={navigate} />} />
         <Route path="/search" element={<SearchPage navigate={navigate} />} />
         <Route

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const AddSynonymForm = ({ word }) => {
   const [newGroupId, setNewGroupId] = useState();
@@ -15,12 +15,13 @@ const AddSynonymForm = ({ word }) => {
   return (
     <section className="relative flex flex-col justify-center items-center mt-10">
       <div className="font-bold">No Synonyms Found</div>
-      <NavLink
+      <Link
         to={`/add/${newGroupId}`}
+        state={{ word: word }}
         className="font-bold mt-2 hover:text-teal-600"
       >
         Click here if you Like to add synonyms to this word?
-      </NavLink>
+      </Link>
     </section>
   );
 };
