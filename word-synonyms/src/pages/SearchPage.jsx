@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import data from "../components/common/data.json";
 import ExistingSynonyms from "../components/ExistingSynonyms";
-import AddSynonymForm from "../components/AddSynonymForm";
+import AddSynonymForm from "../components/AddSynonym";
 
 const SearchPage = () => {
   const [word, setWord] = useState("");

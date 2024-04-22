@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import data from "../components/common/data.json";
+import { Link } from "react-router-dom";
+import ExistingSynonyms from "../components/ExistingSynonyms";
 
 const AddPage = () => {
   const [newWord, setNewWord] = useState("");
   const [synonyms, setSynonyms] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation();
   const { word } = location.state;
@@ -16,21 +19,22 @@ const AddPage = () => {
   };
   const addToList = () => {
     if (!synonyms) {
-      let allSynonyms = [{ value: word, groupId: groupId }];
-      allSynonyms = [...allSynonyms, { value: newWord, groupId: groupId }];
+      let allSynonyms = [
+        { value: word, groupId: groupId },
+        { value: newWord, groupId: groupId },
+      ];
       setSynonyms(allSynonyms);
+      allSynonyms.map((item) => {
+        data.words.push(item);
+      });
       setNewWord("");
-
       return;
     }
+    data.words.push({ value: newWord, groupId: groupId });
     setSynonyms([...synonyms, { value: newWord, groupId: groupId }]);
     setNewWord("");
   };
-  const submitSynonyms = () => {
-    synonyms.map((item) => {
-      data.words.push(item);
-    });
-  };
+
   setTimeout(() => {
     console.log("data", data);
   }, 1000);
@@ -48,14 +52,19 @@ const AddPage = () => {
             onChange={handleChange}
             value={newWord}
           />
-          <button className="btn" onClick={addToList}>
-            Add To List
-          </button>
-          <button className="btn" onClick={submitSynonyms}>
-            Sumbit
-          </button>
-          {console.log("synonyms", synonyms)}
         </label>
+        <button className="btn" onClick={addToList}>
+          Add To List
+        </button>
+        <Link to={`/search`}>
+          <button className="btn">Search Page</button>
+        </Link>
+        {synonyms && (
+          <>
+            <ExistingSynonyms synonyms={synonyms} isLoading={isLoading} />
+          </>
+        )}
+        {console.log("synonyms", synonyms)}
       </div>
     </section>
   );
