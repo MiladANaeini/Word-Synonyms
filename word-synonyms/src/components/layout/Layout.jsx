@@ -1,5 +1,5 @@
 import React from 'react'
-import TopNav from '../common/TopNav'
+import TopNav from './TopNav'
 import AppRoutes from '../../routes/Routes'
 
 function Layout() {
