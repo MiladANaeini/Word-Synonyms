@@ -8,8 +8,9 @@ const getpost = require("./routes/posts");
 
 //Middlewares
 app.use(cors());
+app.use(express.json());
 app.use("/words", getRoutes);
-app.use("/posts", getpost);
+app.use("/add", getpost);
 //CORS allows you to load resources from different origins
 //ROUTES
 
