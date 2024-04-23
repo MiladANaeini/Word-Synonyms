@@ -3,6 +3,7 @@ import data from "../components/common/data.json";
 import ExistingSynonyms from "../components/ExistingSynonyms";
 import AddSynonymForm from "../components/AddSynonym";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const SearchPage = () => {
   const [word, setWord] = useState("");
@@ -13,7 +14,30 @@ const SearchPage = () => {
   const handleChange = (e) => {
     setWord(e.target.value);
   };
+  const getSuperheroes = () => {
+    axios
+      .get("http://localhost:3000/words/pretty")
+      .then((res) => {
+        console.log(res);
+        setData(res.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log("error");
+        setError(error.message);
+        setIsLoading(false);
+      });
+  };
   const searchWord = () => {
+    axios
+      .get(`http://localhost:3000/words/${word}`)
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((error) => {
+        console.log("error", error.response.data.error);
+      });
+
     setIsLoading(true);
     const synonym = data.words.find(
       (element) => element.value.toLowerCase() === word.toLowerCase()
