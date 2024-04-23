@@ -14,20 +14,7 @@ const SearchPage = () => {
   const handleChange = (e) => {
     setWord(e.target.value);
   };
-  const getSuperheroes = () => {
-    axios
-      .get("http://localhost:3000/words/pretty")
-      .then((res) => {
-        console.log(res);
-        setData(res.data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.log("error");
-        setError(error.message);
-        setIsLoading(false);
-      });
-  };
+
   const searchWord = () => {
     axios
       .get(`http://localhost:3000/words/${word}`)
