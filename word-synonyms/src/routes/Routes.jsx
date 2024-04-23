@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 
 const HomePage = React.lazy(() => import("../pages/HomePage"));
 const SearchPage = React.lazy(() => import("../pages/SearchPage"));
-const AddPage = React.lazy(() => import("../pages/AddPage"));
+const AddPage = React.lazy(() => import("../pages/AddSynonymForm"));
 
 const AppRoutes = () => {
   const navigate = useNavigate();
