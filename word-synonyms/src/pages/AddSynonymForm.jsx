@@ -39,7 +39,8 @@ const AddPage = () => {
       .catch((error) => {
         console.error(error.response.data);
       });
-
+    setNewWord("");
+    console.log(newWord);
     setIsLoading(false);
   };
 
