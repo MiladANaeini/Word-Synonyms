@@ -1,5 +1,6 @@
 const express = require("express");
-const data = require("../data.json");
+const fs = require("fs");
+const path = require("path");
 const router = express.Router();
 
 router.delete("/:word", (req, res) => {
@@ -9,19 +10,36 @@ router.delete("/:word", (req, res) => {
     return res.status(400).json({ error: "word is required" });
   }
 
-  const wordExists = data.words.find(
-    (element) => element.value.toLocaleLowerCase() === word.toLocaleLowerCase()
-  );
-  if (!wordExists) {
-    return res.status(404).json({ error: "The provided word doesn't exist" });
-  }
+  const dataPath = path.join(__dirname, "../data.json");
+  fs.readFile(dataPath, "utf8", (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: "Internal server error" });
+    }
 
-  data.words = data.words.filter(
-    (element) => element.value.toLocaleLowerCase() !== word.toLocaleLowerCase()
-  );
+    // Parse the JSON data
+    const jsonData = JSON.parse(data);
+    const wordExists = jsonData.words.find(
+      (element) =>
+        element.value.toLocaleLowerCase() === word.toLocaleLowerCase()
+    );
+    if (!wordExists) {
+      return res.status(404).json({ error: "The provided word doesn't exist" });
+    }
 
-  res.status(200).json({
-    message: "Word was removed successfully",
+    jsonData.words = jsonData.words.filter(
+      (element) =>
+        element.value.toLocaleLowerCase() !== word.toLocaleLowerCase()
+    );
+    // Write the updated JSON data back to the file
+    fs.writeFile(dataPath, JSON.stringify(jsonData, null, 2), (err) => {
+      if (err) {
+        return res.status(500).json({ error: "Internal server error" });
+      }
+
+      res.status(200).json({
+        message: "Word was removed successfully",
+      });
+    });
   });
 });
 

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import data from "../components/common/data.json";
 import { Link } from "react-router-dom";
 import ExistingSynonyms from "../components/ExistingSynonyms";
 import axios from "axios";
@@ -8,57 +7,81 @@ import axios from "axios";
 const AddPage = () => {
   const [newWord, setNewWord] = useState("");
   const [synonyms, setSynonyms] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [groupId, setGroupId] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const location = useLocation();
-  const { word, prevSynonyms } = location.state;
+  const { word, synonymId } = location.state;
+
   // const path = location.pathname.split("/");
   // const groupId = path[path.length - 1];
 
   useEffect(() => {
-    if (prevSynonyms) {
-      setSynonyms(prevSynonyms);
-    }
-  }, []);
+    searchWord(word);
+  }, [word]);
 
   const handleChange = (e) => {
     setNewWord(e.target.value);
   };
-  const addToList = ({ word, newWord }) => {
+  const createList = async () => {
     setIsLoading(true);
     const newGroup = {
       word: word,
       synonym: newWord,
     };
-    console.log("newGroup", newGroup);
-    axios
+    await axios
       .post("http://localhost:3000/add", newGroup)
       .then((res) => {
-        let groupId = res.data.groupId;
+        console.log("res.data.groupId", res.data.groupId);
+        searchWord(word);
+        setNewWord("");
       })
       .catch((error) => {
-        console.error(error.response.data);
+        // console.error(error.res.data);
         setIsLoading(false);
       });
-    setNewWord("");
-    searchWord(word);
   };
-  const searchWord = () => {
-    axios
-      .get(`http://localhost:3000/words/${word}`)
+  const searchWord = async () => {
+    setIsLoading(true);
+    try {
+      const res = await axios.get(`http://localhost:3000/words/${word}`);
+      console.log("res", res);
+      setSynonyms(res.data);
+      if (res.data.length) {
+        setGroupId(res.data[0]?.groupId);
+      }
+      // console.log("res.data[0]?.groupId", res.data[0].groupId);
+      setIsLoading(false);
+    } catch (error) {
+      // console.log(error.res.data.error);
+      setIsLoading(false);
+    }
+  };
+  const updateList = async () => {
+    setIsLoading(true);
+    await axios
+      .put(`http://localhost:3000/add/${groupId}`, {
+        synonym: newWord,
+      })
       .then((res) => {
-        console.log("res", res);
-        setSynonyms(res.data);
+        searchWord();
+        setIsLoading(false);
+        setNewWord("");
       })
       .catch((error) => {
-        console.log(error.response.data.error);
+        // console.log(error.response.data.error);
         setIsLoading(false);
       });
   };
 
-  setTimeout(() => {
-    console.log("data", data);
-  }, 1000);
+  const handleSubmit = () => {
+    console.log("groupId", groupId);
+    if (!groupId) {
+      createList();
+    } else {
+      updateList();
+    }
+  };
   return (
     <section className="relative flex justify-center items-center mt-10">
       <div className="flex-1 min-w-[50%] max-w-[80%] flex flex-col">
@@ -74,15 +97,25 @@ const AddPage = () => {
             value={newWord}
           />
         </label>
-        <button className="btn" onClick={() => addToList({ word, newWord })}>
+        <button className="btn" onClick={handleSubmit}>
           Add To List
         </button>
         <Link to={`/search`}>
-          <button className="btn">Search Page</button>
+          <button className="btn">Back</button>
         </Link>
-        {synonyms && (
+        {isLoading ? (
+          <>Loading...</>
+        ) : (
           <>
-            <ExistingSynonyms synonyms={synonyms} isLoading={isLoading} />
+            {synonyms && (
+              <>
+                <ExistingSynonyms
+                  word={word}
+                  synonyms={synonyms}
+                  isLoading={isLoading}
+                />
+              </>
+            )}
           </>
         )}
       </div>

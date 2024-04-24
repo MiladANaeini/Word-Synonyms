@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const data = require("../data.json");
-
+const fs = require("fs");
+const path = require("path");
 // ROUTES
 // ============== search API ===============
 router.get("/:word", (req, res) => {
@@ -9,21 +9,31 @@ router.get("/:word", (req, res) => {
   if (!word) {
     return res.status(400).json({ error: "Word parameter is required" }); //Bad req
   }
+  // Read the data.json file
+  const dataPath = path.join(__dirname, "../data.json");
+  fs.readFile(dataPath, "utf8", (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: "Internal server error" });
+    }
+    // Parse the JSON data
+    const jsonData = JSON.parse(data);
 
-  const theWord = data.words.find(
-    (element) => element.value.toLocaleLowerCase() === word.toLocaleLowerCase()
-  );
+    const theWord = jsonData.words.find(
+      (element) =>
+        element.value.toLocaleLowerCase() === word.toLocaleLowerCase()
+    );
 
-  if (!theWord) {
-    return res
-      .status(404)
-      .json({ error: "This word does not exist in our database" });
-  }
-  const synonyms = data.words.filter(
-    (element) => element.groupId === theWord.groupId
-  );
+    if (!theWord) {
+      return res.json([]);
+    }
+    const synonyms = jsonData.words.filter(
+      (element) =>
+        element.groupId === theWord.groupId &&
+        element.value.toLocaleLowerCase() !== word.toLocaleLowerCase()
+    );
 
-  res.json(synonyms);
+    res.json(synonyms);
+  });
 });
 
 router.get("/", (req, res) => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ExistingSynonyms from "../components/ExistingSynonyms";
 import AddSynonymForm from "../components/AddSynonym";
 import { Link } from "react-router-dom";
@@ -6,6 +6,7 @@ import axios from "axios";
 
 const SearchPage = () => {
   const [word, setWord] = useState("");
+  const [searchedWord, setSearchedWord] = useState("");
   const [synonyms, setSynonyms] = useState(null);
   const [synonymId, setSynonymId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -14,19 +15,29 @@ const SearchPage = () => {
     setWord(e.target.value);
   };
 
-  const searchWord = () => {
+  useEffect(() => {
+    if (!word) {
+      setSynonyms(null);
+    }
+  }, [word]);
+
+  const searchWord = async () => {
     setIsLoading(true);
-    axios
+    setSearchedWord(word);
+    await axios
       .get(`http://localhost:3000/words/${word}`)
       .then((res) => {
         console.log("res", res);
         setSynonyms(res.data);
+        console.log("res.data.groupId[0]", res.data[0].groupId);
+        setSynonymId(res.data[0].groupId);
+        setIsLoading(false);
       })
       .catch((error) => {
-        console.log(error.response.data.error);
+        // console.log(error.response.data.error);
         setSynonyms([]);
+        setIsLoading(false);
       });
-    setIsLoading(false);
   };
   return (
     <section className="relative flex justify-center items-center mt-10">
@@ -46,24 +57,30 @@ const SearchPage = () => {
         <button onClick={searchWord} className="btn mt-2">
           Search
         </button>
-        {synonyms && (
+        {isLoading ? (
+          <>loading...</>
+        ) : (
           <>
-            {synonyms.length ? (
+            {synonyms && (
               <>
-                <Link
-                  to={`/add/${synonymId}`}
-                  state={{ word: word, prevSynonyms: synonyms }}
-                >
-                  <button className="btn mt-2">Add Synonyms</button>
-                </Link>
-                <ExistingSynonyms
-                  word={word}
-                  synonyms={synonyms}
-                  isLoading={isLoading}
-                />
+                {searchedWord && synonyms.length ? (
+                  <>
+                    <Link
+                      to={`/add`}
+                      state={{
+                        word: searchedWord,
+                        prevSynonyms: synonyms,
+                        synonymId: synonymId,
+                      }}
+                    >
+                      <button className="btn mt-2">Add Synonyms</button>
+                    </Link>
+                    <ExistingSynonyms word={searchedWord} synonyms={synonyms} />
+                  </>
+                ) : (
+                  <AddSynonymForm word={searchedWord} synonymId={null} />
+                )}
               </>
-            ) : (
-              <AddSynonymForm word={word} />
             )}
           </>
         )}
