@@ -1,16 +1,17 @@
 import React from "react";
 
-const ExistingSynonyms = ({ synonyms, isLoading }) => {
+const ExistingSynonyms = ({ word, synonyms, isLoading }) => {
   return (
     <div>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
         <>
-          {synonyms.map((item, key) => (
-            <div className="info-box" key={key}>
+          <div>Synonyms for "{word}"</div>
+          {synonyms.slice(1).map((item, index) => (
+            <div className="info-box" key={index}>
               <p className="cta-text">
-                {key + 1}. {item.value}
+                {index + 1}. {item.value}
               </p>
             </div>
           ))}

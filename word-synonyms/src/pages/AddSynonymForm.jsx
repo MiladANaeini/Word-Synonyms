@@ -38,10 +38,22 @@ const AddPage = () => {
       })
       .catch((error) => {
         console.error(error.response.data);
+        setIsLoading(false);
       });
     setNewWord("");
-    console.log(newWord);
-    setIsLoading(false);
+    searchWord(word);
+  };
+  const searchWord = () => {
+    axios
+      .get(`http://localhost:3000/words/${word}`)
+      .then((res) => {
+        console.log("res", res);
+        setSynonyms(res.data);
+      })
+      .catch((error) => {
+        console.log(error.response.data.error);
+        setIsLoading(false);
+      });
   };
 
   setTimeout(() => {

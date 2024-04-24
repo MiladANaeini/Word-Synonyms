@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import data from "../components/common/data.json";
 import ExistingSynonyms from "../components/ExistingSynonyms";
 import AddSynonymForm from "../components/AddSynonym";
 import { Link } from "react-router-dom";
@@ -16,27 +15,17 @@ const SearchPage = () => {
   };
 
   const searchWord = () => {
+    setIsLoading(true);
     axios
       .get(`http://localhost:3000/words/${word}`)
       .then((res) => {
         console.log("res", res);
+        setSynonyms(res.data);
       })
       .catch((error) => {
         console.log(error.response.data.error);
+        setSynonyms([]);
       });
-
-    setIsLoading(true);
-    const synonym = data.words.find(
-      (element) => element.value.toLowerCase() === word.toLowerCase()
-    );
-    if (!synonym) {
-      setSynonyms([]);
-      return;
-    }
-    setSynonyms(
-      data.words.filter((element) => element.groupId === synonym.groupId)
-    );
-    setSynonymId(synonym.groupId);
     setIsLoading(false);
   };
   return (
@@ -67,7 +56,11 @@ const SearchPage = () => {
                 >
                   <button className="btn mt-2">Add Synonyms</button>
                 </Link>
-                <ExistingSynonyms synonyms={synonyms} isLoading={isLoading} />
+                <ExistingSynonyms
+                  word={word}
+                  synonyms={synonyms}
+                  isLoading={isLoading}
+                />
               </>
             ) : (
               <AddSynonymForm word={word} />
