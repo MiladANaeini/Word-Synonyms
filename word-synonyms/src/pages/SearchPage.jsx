@@ -22,7 +22,7 @@ const SearchPage = () => {
         console.log("res", res);
       })
       .catch((error) => {
-        console.log("error", error.response.data.error);
+        console.log(error.response.data.error);
       });
 
     setIsLoading(true);

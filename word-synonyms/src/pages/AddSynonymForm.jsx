@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import data from "../components/common/data.json";
 import { Link } from "react-router-dom";
 import ExistingSynonyms from "../components/ExistingSynonyms";
+import axios from "axios";
 
 const AddPage = () => {
   const [newWord, setNewWord] = useState("");
@@ -11,8 +12,8 @@ const AddPage = () => {
 
   const location = useLocation();
   const { word, prevSynonyms } = location.state;
-  const path = location.pathname.split("/");
-  const groupId = path[path.length - 1];
+  // const path = location.pathname.split("/");
+  // const groupId = path[path.length - 1];
 
   useEffect(() => {
     if (prevSynonyms) {
@@ -23,22 +24,23 @@ const AddPage = () => {
   const handleChange = (e) => {
     setNewWord(e.target.value);
   };
-  const addToList = () => {
-    if (!synonyms) {
-      let allSynonyms = [
-        { value: word, groupId: groupId },
-        { value: newWord, groupId: groupId },
-      ];
-      setSynonyms(allSynonyms);
-      allSynonyms.map((item) => {
-        data.words.push(item);
+  const addToList = ({ word, newWord }) => {
+    setIsLoading(true);
+    const newGroup = {
+      word: word,
+      synonym: newWord,
+    };
+    console.log("newGroup", newGroup);
+    axios
+      .post("http://localhost:3000/add", newGroup)
+      .then((res) => {
+        let groupId = res.data.groupId;
+      })
+      .catch((error) => {
+        console.error(error.response.data);
       });
-      setNewWord("");
-      return;
-    }
-    data.words.push({ value: newWord, groupId: groupId });
-    setSynonyms([...synonyms, { value: newWord, groupId: groupId }]);
-    setNewWord("");
+
+    setIsLoading(false);
   };
 
   setTimeout(() => {
@@ -59,7 +61,7 @@ const AddPage = () => {
             value={newWord}
           />
         </label>
-        <button className="btn" onClick={addToList}>
+        <button className="btn" onClick={() => addToList({ word, newWord })}>
           Add To List
         </button>
         <Link to={`/search`}>
@@ -70,7 +72,6 @@ const AddPage = () => {
             <ExistingSynonyms synonyms={synonyms} isLoading={isLoading} />
           </>
         )}
-        {console.log("synonyms", synonyms)}
       </div>
     </section>
   );
