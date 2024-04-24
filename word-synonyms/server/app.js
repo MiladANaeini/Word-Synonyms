@@ -4,13 +4,15 @@ const app = express();
 
 //Import Routes
 const getRoutes = require("./routes/gets");
-const getpost = require("./routes/posts");
+const postRoutes = require("./routes/posts");
+const putRoutes = require("./routes/puts");
 
 //Middlewares
 app.use(cors());
 app.use(express.json());
 app.use("/words", getRoutes);
-app.use("/add", getpost);
+app.use("/add", postRoutes);
+app.use("/add", putRoutes);
 //CORS allows you to load resources from different origins
 //ROUTES
 
