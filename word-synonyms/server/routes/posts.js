@@ -3,7 +3,6 @@ const data = require("../data.json");
 const router = express.Router();
 
 router.post("/", (req, res) => {
-  console.log("req.body", req.body);
   const { word, synonym } = req.body;
   if (!word || !synonym) {
     return res

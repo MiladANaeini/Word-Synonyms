@@ -3,7 +3,6 @@ const data = require("../data.json");
 const router = express.Router();
 
 router.put("/:groupId", (req, res) => {
-  console.log("req.body", req.body);
   const groupId = req.params.groupId;
   const synonym = req.body.synonym;
 
