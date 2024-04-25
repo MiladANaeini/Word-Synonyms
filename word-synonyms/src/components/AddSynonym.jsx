@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 const AddSynonymForm = ({ word }) => {
+  if (!word) return null;
   return (
     <section className="relative flex flex-col justify-center items-center mt-10">
       <div className="font-bold">No Synonyms Found</div>

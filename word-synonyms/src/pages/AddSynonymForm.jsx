@@ -3,15 +3,15 @@ import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ExistingSynonyms from "../components/ExistingSynonyms";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const AddPage = () => {
   const [newWord, setNewWord] = useState("");
   const [synonyms, setSynonyms] = useState(null);
   const [groupId, setGroupId] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  const navigate = useNavigate();
   const location = useLocation();
-  const { word, synonymId } = location.state;
+  const { word } = location.state || {};
 
   // const path = location.pathname.split("/");
   // const groupId = path[path.length - 1];
@@ -83,6 +83,12 @@ const AddPage = () => {
       updateList();
     }
   };
+
+  if (!location.state) {
+    console.log("location.state", location.state);
+    return navigate(`/search`, { replace: true });
+  }
+
   return (
     <section className="relative flex justify-center items-center mt-10">
       <div className="flex-1 min-w-[50%] max-w-[80%] flex flex-col">

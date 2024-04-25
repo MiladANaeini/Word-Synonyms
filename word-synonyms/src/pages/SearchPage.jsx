@@ -25,7 +25,7 @@ const SearchPage = () => {
     setIsLoading(true);
     setSearchedWord(word);
     await axios
-      .get(`http://localhost:3000/words/${word}`)
+      .get(`http://localhost:3000/words/${word.trim()}`)
       .then((res) => {
         console.log("res", res);
         console.log("2");
@@ -36,7 +36,7 @@ const SearchPage = () => {
         setIsLoading(false);
       })
       .catch((error) => {
-        console.log(error.response.data.error);
+        console.log(error?.response?.data.error);
         setSynonyms([]);
         setIsLoading(false);
       });
@@ -60,37 +60,27 @@ const SearchPage = () => {
         <button onClick={searchWord} className="btn mt-2">
           Search
         </button>
-        {isLoading ? (
-          <>loading...</>
-        ) : (
+        {searchedWord && synonyms?.length ? (
           <>
-            {synonyms && (
-              <>
-                {searchedWord && synonyms.length ? (
-                  <>
-                    <Link
-                      to={`/add`}
-                      state={{
-                        word: searchedWord,
-                        prevSynonyms: synonyms,
-                      }}
-                    >
-                      <button className="btn mt-2">Add Synonyms</button>
-                    </Link>
-                    <ExistingSynonyms
-                      word={searchedWord}
-                      synonyms={synonyms}
-                      setIsLoading={setIsLoading}
-                      groupId={groupId}
-                      searchWord={searchWord}
-                    />
-                  </>
-                ) : (
-                  <AddSynonymForm word={searchedWord} />
-                )}
-              </>
-            )}
+            <Link
+              to={`/add`}
+              state={{
+                word: searchedWord,
+                prevSynonyms: synonyms,
+              }}
+            >
+              <button className="btn mt-2">Add Synonyms</button>
+            </Link>
+            <ExistingSynonyms
+              word={searchedWord}
+              synonyms={synonyms}
+              setIsLoading={setIsLoading}
+              groupId={groupId}
+              searchWord={searchWord}
+            />
           </>
+        ) : (
+          <AddSynonymForm word={searchedWord} />
         )}
       </div>
     </section>

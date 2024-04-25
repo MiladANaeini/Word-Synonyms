@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+
 const ExistingSynonyms = ({
   word,
   synonyms,
@@ -10,21 +10,22 @@ const ExistingSynonyms = ({
   searchWord,
 }) => {
   const notifyError = (text) => toast(text);
-  const notifySuc = (text) => toast("suc");
+  const notifySuc = (text) => toast(text);
+
   //API Calls
   const deleteWord = async (word) => {
     setIsLoading(true);
     await axios
-      .delete(`http://localhost:3000/words/${groupId}/${word}`)
+      .delete(`http://localhost:3000/words/${groupId}/${groupId}`)
       .then((res) => {
-        setIsLoading(false);
         searchWord();
-        notifySuc("it was deleeted");
+        notifySuc("Success Notification !");
       })
       .catch((error) => {
         notifyError(error.response?.data.error);
         console.log("error", error.response?.data.error);
-
+      })
+      .finally(() => {
         setIsLoading(false);
       });
   };
@@ -46,9 +47,6 @@ const ExistingSynonyms = ({
         </div>
       ))}
       <button onClick={() => notifyError("error")}>Notify!</button>
-      <div>
-        <ToastContainer />
-      </div>
     </div>
   );
 };
