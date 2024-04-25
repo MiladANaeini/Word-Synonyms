@@ -10,6 +10,9 @@ router.delete("/:groupId/:word", (req, res) => {
   if (!word || !groupId) {
     return res.status(400).json({ error: "word and groupId are required" });
   }
+  if (word == groupId) {
+    return res.status(400).json({ error: "word and groupId must be unique" });
+  }
   router.delete("/", (req, res) => {
     return res.status(400).json({ error: "groupId is required" });
   });
