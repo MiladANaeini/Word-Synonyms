@@ -3,15 +3,15 @@ const fs = require("fs");
 const path = require("path");
 const router = express.Router();
 
-router.delete("/:groupId", (req, res) => {
+router.delete("/:groupId/:word", (req, res) => {
   const groupId = req.params.groupId;
-  const word = req.body.word;
+  const word = req.params.word;
 
   if (!word || !groupId) {
-    return res.status(400).json({ error: "word is required" });
+    return res.status(400).json({ error: "word and groupId are required" });
   }
-  router.get("/", (req, res) => {
-    return res.status(400).json({ error: "Word parameter is required" });
+  router.delete("/", (req, res) => {
+    return res.status(400).json({ error: "groupId is required" });
   });
 
   // Read the data.json file
@@ -41,6 +41,8 @@ router.delete("/:groupId", (req, res) => {
         (element) => element.groupId !== groupId
       );
     } else {
+      console.log("word", word);
+
       jsonData.words = jsonData.words.filter(
         (element) =>
           element.value.toLocaleLowerCase() !== word.toLocaleLowerCase()

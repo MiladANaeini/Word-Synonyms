@@ -37,7 +37,7 @@ const AddPage = () => {
         setNewWord("");
       })
       .catch((error) => {
-        // console.error(error.res.data);
+        console.error(error.response.data.error);
         setIsLoading(false);
       });
   };
@@ -49,11 +49,12 @@ const AddPage = () => {
       setSynonyms(res.data);
       if (res.data.length) {
         setGroupId(res.data[0]?.groupId);
+      } else {
+        setGroupId(null);
       }
-      // console.log("res.data[0]?.groupId", res.data[0].groupId);
       setIsLoading(false);
     } catch (error) {
-      // console.log(error.res.data.error);
+      // console.log(error.response.data.error);
       setIsLoading(false);
     }
   };
@@ -113,6 +114,9 @@ const AddPage = () => {
                   word={word}
                   synonyms={synonyms}
                   isLoading={isLoading}
+                  setIsLoading={setIsLoading}
+                  searchWord={searchWord}
+                  groupId={groupId}
                 />
               </>
             )}

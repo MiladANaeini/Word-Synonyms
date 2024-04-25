@@ -1,6 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
-const ExistingSynonyms = ({ word, synonyms }) => {
+const ExistingSynonyms = ({
+  word,
+  synonyms,
+  setIsLoading,
+  groupId,
+  searchWord,
+}) => {
+  const deleteWord = async (word) => {
+    setIsLoading(true);
+    await axios
+      .delete(`http://localhost:3000/words/${groupId}/${word}`)
+      .then((res) => {
+        setIsLoading(false);
+        console.log("1");
+        searchWord();
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+      });
+  };
+
   return (
     <div>
       <div>Synonyms for "{word}"</div>
@@ -9,7 +31,12 @@ const ExistingSynonyms = ({ word, synonyms }) => {
           <p className="cta-text">
             {index + 1}. {item.value}
           </p>
-          <h4 className="text-red-300 cursor-pointer">Delete</h4>
+          <h4
+            className="text-red-300 cursor-pointer"
+            onClick={() => deleteWord(item.value)}
+          >
+            Delete
+          </h4>
         </div>
       ))}
     </div>

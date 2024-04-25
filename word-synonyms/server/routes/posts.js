@@ -10,6 +10,11 @@ router.post("/", (req, res) => {
       .status(400)
       .json({ error: "Both 'word' and 'synonym' are required" });
   }
+  if (word === synonym) {
+    return res
+      .status(400)
+      .json({ error: "Both 'word' and 'synonym' myst be unique" });
+  }
 
   const dataPath = path.join(__dirname, "../data.json");
   fs.readFile(dataPath, "utf8", (err, data) => {

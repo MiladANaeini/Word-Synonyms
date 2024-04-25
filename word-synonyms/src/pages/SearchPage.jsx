@@ -28,6 +28,7 @@ const SearchPage = () => {
       .get(`http://localhost:3000/words/${word}`)
       .then((res) => {
         console.log("res", res);
+        console.log("2");
         if (res.data.length) {
           setGroupId(res.data[0]?.groupId);
         }
@@ -40,6 +41,7 @@ const SearchPage = () => {
         setIsLoading(false);
       });
   };
+
   return (
     <section className="relative flex justify-center items-center mt-10">
       <div className="flex-1 min-w-[50%] max-w-[80%] flex flex-col">
@@ -75,7 +77,13 @@ const SearchPage = () => {
                     >
                       <button className="btn mt-2">Add Synonyms</button>
                     </Link>
-                    <ExistingSynonyms word={searchedWord} synonyms={synonyms} />
+                    <ExistingSynonyms
+                      word={searchedWord}
+                      synonyms={synonyms}
+                      setIsLoading={setIsLoading}
+                      groupId={groupId}
+                      searchWord={searchWord}
+                    />
                   </>
                 ) : (
                   <AddSynonymForm word={searchedWord} />
