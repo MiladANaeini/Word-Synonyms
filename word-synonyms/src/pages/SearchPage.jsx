@@ -8,8 +8,8 @@ const SearchPage = () => {
   const [word, setWord] = useState("");
   const [searchedWord, setSearchedWord] = useState("");
   const [synonyms, setSynonyms] = useState(null);
-  const [synonymId, setSynonymId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [groupId, setGroupId] = useState(null);
 
   const handleChange = (e) => {
     setWord(e.target.value);
@@ -28,13 +28,14 @@ const SearchPage = () => {
       .get(`http://localhost:3000/words/${word}`)
       .then((res) => {
         console.log("res", res);
+        if (res.data.length) {
+          setGroupId(res.data[0]?.groupId);
+        }
         setSynonyms(res.data);
-        console.log("res.data.groupId[0]", res.data[0].groupId);
-        setSynonymId(res.data[0].groupId);
         setIsLoading(false);
       })
       .catch((error) => {
-        // console.log(error.response.data.error);
+        console.log(error.response.data.error);
         setSynonyms([]);
         setIsLoading(false);
       });
@@ -70,7 +71,6 @@ const SearchPage = () => {
                       state={{
                         word: searchedWord,
                         prevSynonyms: synonyms,
-                        synonymId: synonymId,
                       }}
                     >
                       <button className="btn mt-2">Add Synonyms</button>
@@ -78,7 +78,7 @@ const SearchPage = () => {
                     <ExistingSynonyms word={searchedWord} synonyms={synonyms} />
                   </>
                 ) : (
-                  <AddSynonymForm word={searchedWord} synonymId={null} />
+                  <AddSynonymForm word={searchedWord} />
                 )}
               </>
             )}

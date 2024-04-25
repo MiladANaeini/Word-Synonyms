@@ -3,13 +3,18 @@ const fs = require("fs");
 const path = require("path");
 const router = express.Router();
 
-router.delete("/:word", (req, res) => {
-  const word = req.params.word;
+router.delete("/:groupId", (req, res) => {
+  const groupId = req.params.groupId;
+  const word = req.body.word;
 
-  if (!word) {
+  if (!word || !groupId) {
     return res.status(400).json({ error: "word is required" });
   }
+  router.get("/", (req, res) => {
+    return res.status(400).json({ error: "Word parameter is required" });
+  });
 
+  // Read the data.json file
   const dataPath = path.join(__dirname, "../data.json");
   fs.readFile(dataPath, "utf8", (err, data) => {
     if (err) {
@@ -18,27 +23,44 @@ router.delete("/:word", (req, res) => {
 
     // Parse the JSON data
     const jsonData = JSON.parse(data);
+
     const wordExists = jsonData.words.find(
       (element) =>
-        element.value.toLocaleLowerCase() === word.toLocaleLowerCase()
+        element.value.toLocaleLowerCase() === word.toLocaleLowerCase() &&
+        element.groupId === groupId
     );
-    if (!wordExists) {
+    if (!wordExists && !groupId) {
       return res.status(404).json({ error: "The provided word doesn't exist" });
     }
-
-    jsonData.words = jsonData.words.filter(
-      (element) =>
-        element.value.toLocaleLowerCase() !== word.toLocaleLowerCase()
+    //check to see if there is only one synonym for one word
+    const removeGroup = jsonData.words.filter(
+      (element) => element.groupId === groupId
     );
+    if (removeGroup.length < 3) {
+      jsonData.words = jsonData.words.filter(
+        (element) => element.groupId !== groupId
+      );
+    } else {
+      jsonData.words = jsonData.words.filter(
+        (element) =>
+          element.value.toLocaleLowerCase() !== word.toLocaleLowerCase()
+      );
+    }
+
     // Write the updated JSON data back to the file
     fs.writeFile(dataPath, JSON.stringify(jsonData, null, 2), (err) => {
       if (err) {
         return res.status(500).json({ error: "Internal server error" });
       }
-
-      res.status(200).json({
-        message: "Word was removed successfully",
-      });
+      if (removeGroup.length < 3) {
+        res.status(200).json({
+          message: "The Group was removed successfully",
+        });
+      } else {
+        res.status(200).json({
+          message: "Word was removed successfully",
+        });
+      }
     });
   });
 });
