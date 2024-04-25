@@ -5,6 +5,7 @@ import ExistingSynonyms from "../components/ExistingSynonyms";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { isEmpty } from "../components/common/IsEmpty";
+import { ToastManager } from "../components/common/ToastManager";
 const AddPage = () => {
   const [newWord, setNewWord] = useState("");
   const [synonyms, setSynonyms] = useState(null);
@@ -33,12 +34,18 @@ const AddPage = () => {
     await axios
       .post("http://localhost:3000/add", newGroup)
       .then((res) => {
-        console.log("res.data.groupId", res.data.groupId);
+        ToastManager({
+          text: "The Word and it's Synonym were added with success",
+          type: "success",
+        });
         searchWord(word);
         setNewWord("");
       })
       .catch((error) => {
-        console.error(error.response.data.error);
+        ToastManager({
+          text: error.response?.data.error,
+          type: "error",
+        });
         setIsLoading(false);
       });
   };
@@ -55,12 +62,17 @@ const AddPage = () => {
       }
       setIsLoading(false);
     } catch (error) {
-      // console.log(error.response.data.error);
+      ToastManager({
+        text: error.response?.data.error,
+        type: "error",
+      });
       setIsLoading(false);
     }
   };
   const updateList = async () => {
     setIsLoading(true);
+    console.log("omad avale api");
+
     await axios
       .put(`http://localhost:3000/add/${groupId}`, {
         synonym: newWord,
@@ -69,15 +81,21 @@ const AddPage = () => {
         searchWord();
         setIsLoading(false);
         setNewWord("");
+        ToastManager({
+          text: "Synonym was added with success",
+          type: "success",
+        });
       })
       .catch((error) => {
-        // console.log(error.response.data.error);
+        ToastManager({
+          text: error.response?.data.error,
+          type: "error",
+        });
         setIsLoading(false);
       });
   };
 
   const handleSubmit = () => {
-    console.log("groupId", groupId);
     if (!groupId) {
       createList();
     } else {

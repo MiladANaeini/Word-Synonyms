@@ -10,7 +10,7 @@ function Layout() {
     <div>
       <TopNav />
       <ScrollToTop />
-      <ToastContainer />
+      <ToastContainer theme={"colored"} />
       <div>
         <AppRoutes />
       </div>
