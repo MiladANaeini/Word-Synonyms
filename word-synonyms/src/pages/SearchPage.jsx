@@ -3,6 +3,7 @@ import ExistingSynonyms from "../components/ExistingSynonyms";
 import AddSynonymForm from "../components/AddSynonym";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { isEmpty } from "../components/common/IsEmpty";
 
 const SearchPage = () => {
   const [word, setWord] = useState("");
@@ -27,9 +28,7 @@ const SearchPage = () => {
     await axios
       .get(`http://localhost:3000/words/${word.trim()}`)
       .then((res) => {
-        console.log("res", res);
-        console.log("2");
-        if (res.data.length) {
+        if (!isEmpty(res.data)) {
           setGroupId(res.data[0]?.groupId);
         }
         setSynonyms(res.data);
@@ -80,7 +79,7 @@ const SearchPage = () => {
             />
           </>
         ) : (
-          <AddSynonymForm word={searchedWord} />
+          <AddSynonymForm word={searchedWord} synonyms={synonyms} />
         )}
       </div>
     </section>

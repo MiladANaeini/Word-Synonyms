@@ -20,3 +20,6 @@ toast notification component mikhad
 input component mikhad
 accessability
 prettier and Eslint
+loading
+
+bug: vaghti yechizi minevisi to seach va pak mikoni nabayad texte no synonym found biad

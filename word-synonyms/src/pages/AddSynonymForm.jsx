@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ExistingSynonyms from "../components/ExistingSynonyms";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { isEmpty } from "../components/common/IsEmpty";
 const AddPage = () => {
   const [newWord, setNewWord] = useState("");
   const [synonyms, setSynonyms] = useState(null);
@@ -47,7 +48,7 @@ const AddPage = () => {
       const res = await axios.get(`http://localhost:3000/words/${word}`);
       console.log("res", res);
       setSynonyms(res.data);
-      if (res.data.length) {
+      if (!isEmpty(res.data)) {
         setGroupId(res.data[0]?.groupId);
       } else {
         setGroupId(null);
