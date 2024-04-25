@@ -4,7 +4,7 @@ import AddSynonymForm from "../components/AddSynonym";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { isEmpty } from "../components/common/IsEmpty";
-
+import Loading from "../components/layout/Loading";
 const SearchPage = () => {
   const [word, setWord] = useState("");
   const [searchedWord, setSearchedWord] = useState("");
@@ -81,6 +81,7 @@ const SearchPage = () => {
         ) : (
           <AddSynonymForm word={searchedWord} synonyms={synonyms} />
         )}
+        <Loading />
       </div>
     </section>
   );
