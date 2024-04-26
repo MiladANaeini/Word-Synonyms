@@ -16,7 +16,8 @@ const AddPage = () => {
   const [newWord, setNewWord] = useState("");
   const [synonyms, setSynonyms] = useState(null);
   const [groupId, setGroupId] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isValid, setIsValid] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
   const { word } = location.state || {};
@@ -30,6 +31,7 @@ const AddPage = () => {
 
   const handleChange = (e) => {
     setNewWord(e.target.value);
+    setIsValid(e.target.validity.valid);
   };
   const createList = async () => {
     setIsLoading(true);
@@ -59,29 +61,31 @@ const AddPage = () => {
       });
   };
   const searchWord = async () => {
+    console.log("first");
     setIsLoading(true);
-    try {
-      const res = await axios.get(`${SEARCH_WORD_URL}/${word}`);
-      console.log("res", res);
-      setSynonyms(res.data);
-      if (!isEmpty(res.data)) {
-        setGroupId(res.data[0]?.groupId);
-      } else {
-        setGroupId(null);
-      }
-      setIsLoading(false);
-    } catch (error) {
-      ToastManager({
-        text: error.response?.data.error,
-        type: "error",
+    await axios
+      .get(`${SEARCH_WORD_URL}/${word.trim()}`)
+      .then((res) => {
+        console.log("res", res);
+        setSynonyms(res.data);
+        if (!isEmpty(res.data)) {
+          setGroupId(res.data[0]?.groupId);
+        } else {
+          setGroupId(null);
+        }
+      })
+      .catch((error) => {
+        ToastManager({
+          text: error.response?.data.error,
+          type: "error",
+        });
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
-      setIsLoading(false);
-    }
   };
   const updateList = async () => {
     setIsLoading(true);
-    console.log("omad avale api");
-
     await axios
       .put(`${ADD_NEW_WORD_OR_SYNONYM_URL}/${groupId}`, {
         synonym: newWord,
@@ -121,6 +125,7 @@ const AddPage = () => {
     <section className="relative flex justify-center items-center mt-10">
       <div className="flex-1 min-w-[50%] max-w-[80%] flex flex-col">
         <SearchInput
+          isValid={isValid}
           handleChange={handleChange}
           value={newWord}
           label={<>Add Synonyms to {word} </>}

@@ -7,7 +7,6 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-check the ifs
 ducument
 hook baraye get
 axios az biron handle beshe
@@ -17,10 +16,5 @@ UI
 web vitals
 accessability
 prettier and Eslint
-loading
-send data in response insted of ..
-add finally to aPi
-change the Id generator
+call api on enter
 debounce
-
-bug: vaghti yechizi minevisi to seach va pak mikoni nabayad texte no synonym found biad
