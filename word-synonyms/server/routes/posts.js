@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const { v4: uuid } = require("uuid");
+
 const fs = require("fs");
 const path = require("path");
 
@@ -26,6 +28,7 @@ router.post("/", (req, res) => {
 
     // Parse the JSON data
     let jsonData = JSON.parse(data);
+
     // the wordsExist variable technically doesnt exist in our UI because we already serach for it
     //but it is only in our UI it might be a seprete create page
     const wordsExist = jsonData.words.find(
@@ -43,10 +46,9 @@ router.post("/", (req, res) => {
       });
     }
     //add the new word and the synonym to the data
-    groupId = Date.now().toString();
+    groupId = uuid();
     jsonData.words.push({ value: word, groupId: groupId });
     jsonData.words.push({ value: synonym, groupId: groupId });
-    console.log("jsonData", jsonData);
 
     // Write the updated JSON data back to the file
     fs.writeFile(dataPath, JSON.stringify(jsonData, null, 2), (err) => {
