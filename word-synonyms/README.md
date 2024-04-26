@@ -22,5 +22,6 @@ prettier and Eslint
 loading
 send data in response insted of ..
 add finally to aPi
+change the Id generator
 
 bug: vaghti yechizi minevisi to seach va pak mikoni nabayad texte no synonym found biad

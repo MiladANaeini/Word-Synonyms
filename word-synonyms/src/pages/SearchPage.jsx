@@ -63,7 +63,6 @@ const SearchPage = () => {
               to={`/add`}
               state={{
                 word: word,
-                prevSynonyms: synonyms,
               }}
             >
               <button className="btn mt-2">Add Synonyms</button>
