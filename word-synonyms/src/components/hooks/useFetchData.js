@@ -5,13 +5,11 @@ import { isEmpty } from "../common/IsEmpty";
 const useFetchData = ({
   url = "",
   callBack = () => {},
-  params = {},
   enable = true,
+  //no query params to avoid complexity given that we dont have complex filters
 }) => {
-  const [result, setResault] = useState(null);
+  const [result, setResult] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [groupId, setGroupId] = useState(null);
-
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -23,28 +21,21 @@ const useFetchData = ({
   const getData = async () => {
     setIsLoading(true);
     await axios
-      .get(url, {
-        params: {
-          ...params,
-        },
-      })
+      .get(url)
       .then((res) => {
-        if (!isEmpty(res.data)) {
-          setGroupId(res.data[0]?.groupId);
-        }
         callBack(res.data);
-        setResault(res.data);
+        setResult(res.data);
       })
       .catch((error) => {
         setError(error?.response?.data.error);
-        setResault([]);
+        setResult([]);
       })
       .finally(() => {
         setIsLoading(false);
       });
   };
 
-  return { isLoading, error, result, groupId, getData };
+  return { isLoading, error, result, getData };
 };
 
 export default useFetchData;

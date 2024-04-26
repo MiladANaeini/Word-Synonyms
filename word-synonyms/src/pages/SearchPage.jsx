@@ -11,7 +11,7 @@ import useFetchData from "../components/hooks/useFetchData";
 const SearchPage = () => {
   const [word, setWord] = useState("");
   const [synonyms, setSynonyms] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [groupId, setGroupId] = useState(null);
   const [isValid, setIsValid] = useState(true);
 
@@ -26,31 +26,16 @@ const SearchPage = () => {
     }
   }, [word]);
 
-  // const { getData, result, isLoading } = useFetchData({
-  //   url: `${SEARCH_WORD_URL}/${word.trim()}`,
-  //   enabled: false,
-  //   callBack: (result) => {
-  //     setSynonyms(result);
-  //   },
-  // });
-  const searchWord = async () => {
-    setIsLoading(true);
-    await axios
-      .get(`${SEARCH_WORD_URL}/${word.trim()}`)
-      .then((res) => {
-        if (!isEmpty(res.data)) {
-          setGroupId(res.data[0]?.groupId);
-        }
-        setSynonyms(res.data);
-      })
-      .catch((error) => {
-        console.log(error?.response?.data.error);
-        setSynonyms([]);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
+  const { getData, isLoading } = useFetchData({
+    url: `${SEARCH_WORD_URL}/${word.trim()}`,
+    enable: false,
+    callBack: (res) => {
+      setSynonyms(res);
+      if (!isEmpty(res)) {
+        setGroupId(res[0]?.groupId);
+      }
+    },
+  });
 
   return (
     <section className="relative flex justify-center items-center mt-10">
@@ -60,7 +45,7 @@ const SearchPage = () => {
           handleChange={handleChange}
           value={word}
           label={"Search for Synonyms:"}
-          handleAction={searchWord}
+          handleSearchAction={getData}
           buttonText={"Search"}
         />
         <Loading loading={isLoading} />
@@ -77,10 +62,8 @@ const SearchPage = () => {
             <ExistingSynonyms
               word={word}
               synonyms={synonyms}
-              setIsLoading={setIsLoading}
-              isLoading={isLoading}
               groupId={groupId}
-              searchWord={searchWord}
+              searchWord={getData}
             />
           </>
         ) : (

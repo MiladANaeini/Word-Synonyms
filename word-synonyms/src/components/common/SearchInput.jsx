@@ -1,7 +1,7 @@
 const SearchInput = ({
   handleChange,
   value,
-  handleAction,
+  handleSearchAction,
   label,
   buttonText,
   isValid,
@@ -21,7 +21,7 @@ const SearchInput = ({
         />
       </label>
       <button
-        onClick={handleAction}
+        onClick={handleSearchAction}
         disabled={!isValid || !value}
         className={`mt-2 ${isValid ? "btn" : "btn-disabled"} ${
           value ? "btn" : "btn-disabled"
