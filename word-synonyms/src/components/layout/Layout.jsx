@@ -7,7 +7,7 @@ import { ScrollToTop } from "./ScrollToTop";
 
 function Layout() {
   return (
-    <div>
+    <div className="roboto-medium">
       <TopNav />
       <ScrollToTop />
       <ToastContainer theme={"colored"} />

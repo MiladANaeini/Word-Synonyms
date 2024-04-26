@@ -16,9 +16,6 @@ const TopNav = () => {
         >
           Search
         </NavLink>
-        {/* <NavLink to="/add" className={({isActive})=> isActive ? "text-blue-500" : 'text-black'}>
-        Add
-      </NavLink> */}
       </nav>
     </header>
   );
