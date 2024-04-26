@@ -8,15 +8,11 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
 ducument
-hook baraye get
-axios az biron handle beshe
 test
 madule saas
 UI
 web vitals
 accessability
 prettier and Eslint
-call api on enter
-debounce
+
 validation space
-axios refactor for delete and get

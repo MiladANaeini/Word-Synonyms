@@ -1,15 +1,14 @@
 import { useState } from "react";
-import axios from "axios";
 import { ToastManager } from "../components/common/ToastManager";
 import { Loading } from "./common/Loading";
+import { deleteApiCall } from "../helpers/ApiCall";
 const ExistingSynonyms = ({ word, synonyms, groupId, searchWord }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   //API Calls
-  const deleteWord = async (word) => {
+  const deleteWord = (word) => {
     setIsLoading(true);
-    await axios
-      .delete(`http://localhost:3000/words/${groupId}/${word}`)
+    deleteApiCall(`http://localhost:3000/words/${groupId}/${word}`)
       .then((res) => {
         ToastManager({
           text: "Synonym was removed with success",

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { getApiCall } from "../../helpers/ApiCall";
 
 const useFetchData = ({
   url = "",
@@ -19,8 +19,7 @@ const useFetchData = ({
 
   const getData = async () => {
     setLoading(true);
-    await axios
-      .get(url)
+    getApiCall(url)
       .then((res) => {
         callBack(res.data);
         setResult(res.data);
