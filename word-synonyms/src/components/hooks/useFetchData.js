@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { isEmpty } from "../common/IsEmpty";
 
 const useFetchData = ({
   url = "",
@@ -9,7 +8,7 @@ const useFetchData = ({
   //no query params to avoid complexity given that we dont have complex filters
 }) => {
   const [result, setResult] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -19,7 +18,7 @@ const useFetchData = ({
   }, []);
 
   const getData = async () => {
-    setIsLoading(true);
+    setLoading(true);
     await axios
       .get(url)
       .then((res) => {
@@ -31,11 +30,11 @@ const useFetchData = ({
         setResult([]);
       })
       .finally(() => {
-        setIsLoading(false);
+        setLoading(false);
       });
   };
 
-  return { isLoading, error, result, getData };
+  return { loading, error, result, getData };
 };
 
 export default useFetchData;

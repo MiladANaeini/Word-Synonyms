@@ -26,7 +26,7 @@ const SearchPage = () => {
     }
   }, [word]);
 
-  const { getData, isLoading } = useFetchData({
+  const { getData, loading } = useFetchData({
     url: `${SEARCH_WORD_URL}/${word.trim()}`,
     enable: false,
     callBack: (res) => {
@@ -48,7 +48,7 @@ const SearchPage = () => {
           handleSearchAction={getData}
           buttonText={"Search"}
         />
-        <Loading loading={isLoading} />
+        <Loading loading={loading} />
         {word && synonyms?.length ? (
           <>
             <Link
