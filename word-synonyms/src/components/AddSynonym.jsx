@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
-import { isEmpty } from "./common/IsEmpty";
+import { isEmpty } from "../helpers/IsEmpty";
+
 const AddSynonymForm = ({ word, synonyms }) => {
   if (!isEmpty(synonyms)) return null;
+
   return (
     <section className="relative flex flex-col justify-center items-center mt-10">
       <div className="font-bold">No Synonyms Found</div>
       <Link
-        to={`/add`}
+        to={`/add/${word}`}
         state={{ word: word }}
         className="font-bold mt-2 hover:text-teal-600"
       >

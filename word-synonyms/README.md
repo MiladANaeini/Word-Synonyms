@@ -18,3 +18,5 @@ accessability
 prettier and Eslint
 call api on enter
 debounce
+validation space
+axios refactor for delete and get

@@ -2,9 +2,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ExistingSynonyms from "../components/ExistingSynonyms";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { isEmpty } from "../components/common/IsEmpty";
+import { isEmpty } from "../helpers/IsEmpty";
 import {
   SEARCH_WORD_URL,
   ADD_NEW_WORD_OR_SYNONYM_URL,
@@ -13,18 +11,19 @@ import { ToastManager } from "../components/common/ToastManager";
 import SearchInput from "../components/common/SearchInput";
 import { Loading } from "../components/common/Loading";
 import useFetchData from "../components/hooks/useFetchData";
+import { postApiCall, putApiCall } from "../helpers/ApiCall";
+
 const AddPage = () => {
   const [newWord, setNewWord] = useState("");
   const [synonyms, setSynonyms] = useState(null);
   const [groupId, setGroupId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isValid, setIsValid] = useState(true);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { word } = location.state || {};
 
-  // const path = location.pathname.split("/");
-  // const groupId = path[path.length - 1];
+  const location = useLocation();
+  const path = location.pathname.split("/");
+  const word = path[path.length - 1];
+
   // Caling Get Data
   const { loading, getData } = useFetchData({
     url: `${SEARCH_WORD_URL}/${word.trim()}`,
@@ -40,22 +39,18 @@ const AddPage = () => {
     },
   });
 
-  // useEffect(() => {
-  //   getData();
-  // }, [word]);
-
   const handleChange = (e) => {
     setNewWord(e.target.value);
     setIsValid(e.target.validity.valid);
   };
-  const createList = async () => {
+  // Calling post api
+  const createList = () => {
     setIsLoading(true);
-    const newGroup = {
+    const payload = {
       word: word,
       synonym: newWord,
     };
-    await axios
-      .post(`${ADD_NEW_WORD_OR_SYNONYM_URL}`, newGroup)
+    postApiCall(`${ADD_NEW_WORD_OR_SYNONYM_URL}`, payload)
       .then((res) => {
         ToastManager({
           text: "The Word and it's Synonym were added with success",
@@ -77,13 +72,11 @@ const AddPage = () => {
   };
 
   const updateList = async () => {
-    console.log("omad avale api");
     setIsLoading(true);
-    await axios
-      .put(`${ADD_NEW_WORD_OR_SYNONYM_URL}/${groupId}`, {
-        synonym: newWord,
-      })
-      .then((res) => {
+    putApiCall(`${ADD_NEW_WORD_OR_SYNONYM_URL}/${groupId}`, {
+      synonym: newWord,
+    })
+      .then(() => {
         getData();
         setNewWord("");
         ToastManager({
@@ -103,18 +96,12 @@ const AddPage = () => {
   };
 
   const handleSubmit = () => {
-    console.log("koni");
     if (!groupId) {
       createList();
     } else {
-      console.log("group hast");
       updateList();
     }
   };
-
-  if (!location.state) {
-    return navigate(`/search`, { replace: true });
-  }
 
   return (
     <section className="relative flex justify-center items-center mt-10">

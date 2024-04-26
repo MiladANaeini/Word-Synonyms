@@ -8,7 +8,6 @@ const SearchInput = ({
 }) => {
   return (
     <>
-      {console.log("kiri")}
       <label className="text-black-500 font-semibold">
         {label}
         <input

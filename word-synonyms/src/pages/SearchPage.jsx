@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import ExistingSynonyms from "../components/ExistingSynonyms";
 import AddSynonymForm from "../components/AddSynonym";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { isEmpty } from "../components/common/IsEmpty";
+import { isEmpty } from "../helpers/IsEmpty";
 import { Loading } from "../components/common/Loading";
 import { SEARCH_WORD_URL } from "../constants/constants";
 import SearchInput from "../components/common/SearchInput";
@@ -11,7 +10,6 @@ import useFetchData from "../components/hooks/useFetchData";
 const SearchPage = () => {
   const [word, setWord] = useState("");
   const [synonyms, setSynonyms] = useState(null);
-  // const [isLoading, setIsLoading] = useState(false);
   const [groupId, setGroupId] = useState(null);
   const [isValid, setIsValid] = useState(true);
 
@@ -52,7 +50,7 @@ const SearchPage = () => {
         {word && synonyms?.length ? (
           <>
             <Link
-              to={`/add`}
+              to={`/add/${word}`}
               state={{
                 word: word,
               }}

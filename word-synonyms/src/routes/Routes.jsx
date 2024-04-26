@@ -13,7 +13,7 @@ const AppRoutes = () => {
       <Routes basename="/">
         <Route path="/homepage" element={<HomePage navigate={navigate} />} />
         <Route path="/search" element={<SearchPage navigate={navigate} />} />
-        <Route path="/add" element={<AddPage navigate={navigate} />} />
+        <Route path="/add/:word" element={<AddPage navigate={navigate} />} />
       </Routes>
     </Suspense>
   );
