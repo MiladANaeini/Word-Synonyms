@@ -5,7 +5,13 @@ import ExistingSynonyms from "../components/ExistingSynonyms";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { isEmpty } from "../components/common/IsEmpty";
+import {
+  SEARCH_WORD_URL,
+  ADD_NEW_WORD_OR_SYNONYM_URL,
+} from "../constants/constants";
 import { ToastManager } from "../components/common/ToastManager";
+import SearchInput from "../components/common/SearchInput";
+import { Loading } from "../components/common/Loading";
 const AddPage = () => {
   const [newWord, setNewWord] = useState("");
   const [synonyms, setSynonyms] = useState(null);
@@ -32,7 +38,7 @@ const AddPage = () => {
       synonym: newWord,
     };
     await axios
-      .post("http://localhost:3000/add", newGroup)
+      .post(`${ADD_NEW_WORD_OR_SYNONYM_URL}`, newGroup)
       .then((res) => {
         ToastManager({
           text: "The Word and it's Synonym were added with success",
@@ -52,7 +58,7 @@ const AddPage = () => {
   const searchWord = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.get(`http://localhost:3000/words/${word}`);
+      const res = await axios.get(`${SEARCH_WORD_URL}/${word}`);
       console.log("res", res);
       setSynonyms(res.data);
       if (!isEmpty(res.data)) {
@@ -74,7 +80,7 @@ const AddPage = () => {
     console.log("omad avale api");
 
     await axios
-      .put(`http://localhost:3000/add/${groupId}`, {
+      .put(`${ADD_NEW_WORD_OR_SYNONYM_URL}/${groupId}`, {
         synonym: newWord,
       })
       .then((res) => {
@@ -104,47 +110,33 @@ const AddPage = () => {
   };
 
   if (!location.state) {
-    console.log("location.state", location.state);
     return navigate(`/search`, { replace: true });
   }
 
   return (
     <section className="relative flex justify-center items-center mt-10">
       <div className="flex-1 min-w-[50%] max-w-[80%] flex flex-col">
-        <label className="text-black-500 font-semibold">
-          Add Synonyms to {word}
-          <input
-            type="text"
-            name="word"
-            className="input"
-            placeholder="Please Enter The Word"
-            required
-            onChange={handleChange}
-            value={newWord}
-          />
-        </label>
-        <button className="btn" onClick={handleSubmit}>
-          Add To List
-        </button>
+        <SearchInput
+          handleChange={handleChange}
+          value={newWord}
+          label={<>Add Synonyms to {word} </>}
+          handleAction={handleSubmit}
+          buttonText={"Add To List"}
+        />
         <Link to={`/search`}>
           <button className="btn">Back</button>
         </Link>
-        {isLoading ? (
-          <>Loading...</>
-        ) : (
+        <Loading loading={isLoading} />
+        {synonyms && (
           <>
-            {synonyms && (
-              <>
-                <ExistingSynonyms
-                  word={word}
-                  synonyms={synonyms}
-                  isLoading={isLoading}
-                  setIsLoading={setIsLoading}
-                  searchWord={searchWord}
-                  groupId={groupId}
-                />
-              </>
-            )}
+            <ExistingSynonyms
+              word={word}
+              synonyms={synonyms}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+              searchWord={searchWord}
+              groupId={groupId}
+            />
           </>
         )}
       </div>

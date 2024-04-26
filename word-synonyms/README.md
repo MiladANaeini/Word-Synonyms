@@ -15,13 +15,12 @@ test
 madule saas
 UI
 web vitals
-toast notification component mikhad
-input component mikhad
 accessability
 prettier and Eslint
 loading
 send data in response insted of ..
 add finally to aPi
 change the Id generator
+debounce
 
 bug: vaghti yechizi minevisi to seach va pak mikoni nabayad texte no synonym found biad

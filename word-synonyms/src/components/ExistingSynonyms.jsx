@@ -1,14 +1,10 @@
-import React from "react";
+import { useState } from "react";
 import axios from "axios";
 import { ToastManager } from "../components/common/ToastManager";
+import { Loading } from "./common/Loading";
+const ExistingSynonyms = ({ word, synonyms, groupId, searchWord }) => {
+  const [isLoading, setIsLoading] = useState(false);
 
-const ExistingSynonyms = ({
-  word,
-  synonyms,
-  setIsLoading,
-  groupId,
-  searchWord,
-}) => {
   //API Calls
   const deleteWord = async (word) => {
     setIsLoading(true);
@@ -34,6 +30,7 @@ const ExistingSynonyms = ({
 
   return (
     <div>
+      <Loading loading={isLoading} />
       <div>Synonyms for "{word}"</div>
       {synonyms.map((item, index) => (
         <div className="info-box" key={index}>

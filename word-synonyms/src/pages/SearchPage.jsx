@@ -7,6 +7,7 @@ import { isEmpty } from "../components/common/IsEmpty";
 import { Loading } from "../components/common/Loading";
 import { SEARCH_WORD_URL } from "../constants/constants";
 import SearchInput from "../components/common/SearchInput";
+import useFetchData from "../components/hooks/useFetchData";
 const SearchPage = () => {
   const [word, setWord] = useState("");
   const [synonyms, setSynonyms] = useState(null);
@@ -23,6 +24,13 @@ const SearchPage = () => {
     }
   }, [word]);
 
+  // const { getData, result, isLoading } = useFetchData({
+  //   url: `${SEARCH_WORD_URL}/${word.trim()}`,
+  //   enabled: false,
+  //   callBack: (result) => {
+  //     setSynonyms(result);
+  //   },
+  // });
   const searchWord = async () => {
     setIsLoading(true);
     await axios
@@ -47,9 +55,10 @@ const SearchPage = () => {
       <div className="flex-1 min-w-[50%] max-w-[80%] flex flex-col">
         <SearchInput
           handleChange={handleChange}
-          word={word}
+          value={word}
           label={"Search for Synonyms:"}
-          searchWord={searchWord}
+          handleAction={searchWord}
+          buttonText={"Search"}
         />
         <Loading loading={isLoading} />
         {word && synonyms?.length ? (
@@ -66,6 +75,7 @@ const SearchPage = () => {
               word={word}
               synonyms={synonyms}
               setIsLoading={setIsLoading}
+              isLoading={isLoading}
               groupId={groupId}
               searchWord={searchWord}
             />

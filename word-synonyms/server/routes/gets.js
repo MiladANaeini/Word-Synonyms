@@ -6,6 +6,7 @@ const path = require("path");
 // ============== search API ===============
 router.get("/:word", (req, res) => {
   const word = req.params.word;
+  //check if the word was sent
   if (!word) {
     return res.status(400).json({ error: "Word parameter is required" }); //Bad req
   }
@@ -18,6 +19,7 @@ router.get("/:word", (req, res) => {
     // Parse the JSON data
     const jsonData = JSON.parse(data);
 
+    //check if the word exists in our data
     const theWord = jsonData.words.find(
       (element) =>
         element.value.toLocaleLowerCase() === word.toLocaleLowerCase()

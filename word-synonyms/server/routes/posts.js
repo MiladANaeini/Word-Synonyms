@@ -5,15 +5,17 @@ const path = require("path");
 
 router.post("/", (req, res) => {
   const { word, synonym } = req.body;
+  //check that both synonym and the word are sent
   if (!word || !synonym) {
     return res
       .status(400)
       .json({ error: "Both 'word' and 'synonym' are required" });
   }
+  //check if the word and synonym are not the same
   if (word === synonym) {
     return res
       .status(400)
-      .json({ error: "Both 'word' and 'synonym' myst be unique" });
+      .json({ error: "Both 'Word' and 'Synonym' can not be the same" });
   }
 
   const dataPath = path.join(__dirname, "../data.json");
@@ -24,7 +26,8 @@ router.post("/", (req, res) => {
 
     // Parse the JSON data
     let jsonData = JSON.parse(data);
-
+    // the wordsExist variable technically doesnt exist in our UI because we already serach for it
+    //but it is only in our UI it might be a seprete create page
     const wordsExist = jsonData.words.find(
       (element) =>
         element.value.toLocaleLowerCase() === word.toLocaleLowerCase()

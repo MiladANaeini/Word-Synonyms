@@ -1,4 +1,10 @@
-const SearchInput = ({ handleChange, word, searchWord, label }) => {
+const SearchInput = ({
+  handleChange,
+  value,
+  handleAction,
+  label,
+  buttonText,
+}) => {
   return (
     <>
       <label className="text-black-500 font-semibold">
@@ -10,11 +16,11 @@ const SearchInput = ({ handleChange, word, searchWord, label }) => {
           placeholder="Please Enter The Word"
           required
           onChange={handleChange}
-          value={word}
+          value={value}
         />
       </label>
-      <button onClick={searchWord} className="btn mt-2">
-        Search
+      <button onClick={handleAction} className="btn mt-2">
+        {buttonText}
       </button>
     </>
   );
