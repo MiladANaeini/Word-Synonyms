@@ -7,7 +7,6 @@ import { isEmpty } from "../components/common/IsEmpty";
 import Loading from "../components/layout/Loading";
 const SearchPage = () => {
   const [word, setWord] = useState("");
-  const [searchedWord, setSearchedWord] = useState("");
   const [synonyms, setSynonyms] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [groupId, setGroupId] = useState(null);
@@ -24,7 +23,6 @@ const SearchPage = () => {
 
   const searchWord = async () => {
     setIsLoading(true);
-    setSearchedWord(word);
     await axios
       .get(`http://localhost:3000/words/${word.trim()}`)
       .then((res) => {
@@ -59,19 +57,19 @@ const SearchPage = () => {
         <button onClick={searchWord} className="btn mt-2">
           Search
         </button>
-        {searchedWord && synonyms?.length ? (
+        {word && synonyms?.length ? (
           <>
             <Link
               to={`/add`}
               state={{
-                word: searchedWord,
+                word: word,
                 prevSynonyms: synonyms,
               }}
             >
               <button className="btn mt-2">Add Synonyms</button>
             </Link>
             <ExistingSynonyms
-              word={searchedWord}
+              word={word}
               synonyms={synonyms}
               setIsLoading={setIsLoading}
               groupId={groupId}
@@ -79,7 +77,7 @@ const SearchPage = () => {
             />
           </>
         ) : (
-          <AddSynonymForm word={searchedWord} synonyms={synonyms} />
+          <AddSynonymForm word={word} synonyms={synonyms} />
         )}
         <Loading />
       </div>
