@@ -44,7 +44,8 @@ const AddPage = () => {
           text: "The Word and it's Synonym were added with success",
           type: "success",
         });
-        searchWord(word);
+        setGroupId(res.data.groupId);
+        setSynonyms(res.data.newSynonym);
         setNewWord("");
       })
       .catch((error) => {
@@ -52,6 +53,8 @@ const AddPage = () => {
           text: error.response?.data.error,
           type: "error",
         });
+      })
+      .finally(() => {
         setIsLoading(false);
       });
   };
@@ -85,7 +88,6 @@ const AddPage = () => {
       })
       .then((res) => {
         searchWord();
-        setIsLoading(false);
         setNewWord("");
         ToastManager({
           text: "Synonym was added with success",
@@ -97,6 +99,8 @@ const AddPage = () => {
           text: error.response?.data.error,
           type: "error",
         });
+      })
+      .finally(() => {
         setIsLoading(false);
       });
   };

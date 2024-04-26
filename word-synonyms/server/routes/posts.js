@@ -49,7 +49,7 @@ router.post("/", (req, res) => {
     groupId = uuid();
     jsonData.words.push({ value: word, groupId: groupId });
     jsonData.words.push({ value: synonym, groupId: groupId });
-
+    const newSynonym = [{ value: synonym, groupId: groupId }];
     // Write the updated JSON data back to the file
     fs.writeFile(dataPath, JSON.stringify(jsonData, null, 2), (err) => {
       if (err) {
@@ -60,8 +60,8 @@ router.post("/", (req, res) => {
       res.status(201).json({
         message: "Word and Synonym created successfully",
         word,
-        synonym,
         groupId,
+        newSynonym,
       });
     });
   });
