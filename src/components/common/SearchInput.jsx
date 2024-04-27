@@ -5,38 +5,36 @@ const SearchInput = ({
   handleSearchAction,
   label,
   buttonText,
-  isValid,
 }) => {
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
+  const handleKeyPress = ({ key }) => {
+    if (key === "Enter" && value) {
       handleSearchAction();
     }
   };
 
   return (
     <>
-      <label className="text-black-500 font-semibold">{label}</label>
-      <input
-        type="text"
-        name="word"
-        className={`input ${isValid ? "" : "input-invalid"}`}
-        placeholder="Please Enter The Word"
-        pattern=".*\S.*"
-        onChange={handleChange}
-        value={value}
-        onKeyDown={handleKeyPress}
-      />
-      <button
-        type="submit"
-        onClick={handleSearchAction}
-        disabled={!isValid || !value}
-        className={`mt-1 ${isValid ? "btn" : "btn-disabled"} ${
-          value ? "btn" : "btn-disabled"
-        }`}
-      >
-        {buttonText}
-      </button>
-      {!isValid && <p className="text-red-500">Please enter your word</p>}
+      <h3 className="w-full text-left">{label}</h3>
+      <div className="w-full flex items-center gap-2 whitespace-nowrap">
+        <input
+          type="text"
+          name="word"
+          className="w-full input"
+          placeholder="Please Enter The Word"
+          pattern=".*\S.*"
+          onChange={handleChange}
+          value={value}
+          onKeyDown={handleKeyPress}
+        />
+        <button
+          type="submit"
+          onClick={handleSearchAction}
+          disabled={!value}
+          className={!!value ? "btn" : "btn-disabled"}
+        >
+          {buttonText}
+        </button>
+      </div>
     </>
   );
 };
@@ -47,7 +45,6 @@ SearchInput.propTypes = {
   handleSearchAction: PropTypes.func,
   label: PropTypes.string,
   buttonText: PropTypes.string,
-  isValid: PropTypes.bool,
 };
 
 SearchInput.defaultProps = {
@@ -56,6 +53,5 @@ SearchInput.defaultProps = {
   handleSearchAction: () => {},
   label: "",
   buttonText: "",
-  isValid: true,
 };
 export default SearchInput;

@@ -2,20 +2,16 @@ import { NavLink } from "react-router-dom";
 import { ROUTES_URL } from "../../constants/routes_url";
 const TopNav = () => {
   return (
-    <header className="header">
-      <NavLink to={ROUTES_URL.HOME}>
-        <p className="to-blue-500">Home Page</p>
+    <header className="flex items-center justify-between text-sm font-normal bg-white px-5 leading-10">
+      <NavLink to={ROUTES_URL.HOME}>Home</NavLink>
+      <NavLink
+        to={ROUTES_URL.SEARCH}
+        className={({ isActive }) =>
+          isActive ? "text-blue-800" : "text-black"
+        }
+      >
+        Search
       </NavLink>
-      <nav className="flex text-lg gap-7 font-medium">
-        <NavLink
-          to={ROUTES_URL.SEARCH}
-          className={({ isActive }) =>
-            isActive ? "text-blue-800" : "text-black"
-          }
-        >
-          Search
-        </NavLink>
-      </nav>
     </header>
   );
 };

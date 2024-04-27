@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { Loading } from "../components/common/Loading";
 import { ROUTES_URL } from "../constants/routes_url";
 
+// TODO
 const HomePage = React.lazy(() => import("../pages/HomePage"));
 const SearchPage = React.lazy(() => import("../pages/SearchPage"));
 const AddPage = React.lazy(() => import("../pages/AddSynonymForm"));

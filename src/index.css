@@ -2,10 +2,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 body {
   background: url("./assets/images/blob.svg") no-repeat;
   background-size: cover;
   min-height: 100vh;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
 }
 
 @layer utilities {
@@ -13,10 +17,10 @@ body {
     @apply text-white bg-gradient-to-r from-[#00c6ff] to-[#1470b6] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center;
   }
   .btn-disabled {
-    @apply text-gray-200 bg-gradient-to-r from-[#e76363] to-[#1470b6] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center;
+    @apply text-gray-200 bg-gradient-to-r from-slate-500 to-slate-600 opacity-30 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center;
   }
   .header {
-    @apply flex justify-between items-center sm:px-16 px-8 py-4 max-w-full mx-auto  top-0  z-10 right-0 left-0 bg-[#f5f5f5f4];
+    @apply bg-[#f5f5f5f4];
   }
   .input {
     @apply bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  font-normal;
@@ -32,7 +36,7 @@ body {
     @apply relative flex text-wrap text-white bg-gradient-to-r from-[#1470b6] to-[#1470b6] flex-col gap-3 neo-brutalism-blue pt-1 pb-1 px-1 mt-2 text-center;
   }
   .card-box {
-    @apply relative flex text-wrap text-black flex-col gap-4 card-white w-10/12 pt-1 pb-5 px-2 mt-2 container;
+    @apply bg-white text-center py-4 px-6 flex items-center justify-center flex-col gap-4 rounded-md max-w-3xl w-full;
   }
 }
 .neo-brutalism-blue {
@@ -47,13 +51,4 @@ body {
   border-radius: 7px;
   border: #2b77e7;
   box-shadow: 10px 10px 5px rgba(4, 128, 170, 0.434);
-}
-.input-invalid {
-  border-color: red;
-  background-color: #ffeeee; /* Light red background */
-}
-.roboto-medium {
-  font-family: "Roboto", sans-serif;
-  font-weight: 500;
-  font-style: normal;
 }

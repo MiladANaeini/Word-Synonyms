@@ -110,34 +110,30 @@ const AddPage = () => {
   };
 
   return (
-    <section className="relative flex justify-center items-center mt-10">
-      <div className="flex-1 min-w-[50%] max-w-[80%] flex flex-col card-box">
-        <SearchInput
-          isValid={isValid}
-          handleChange={handleChange}
-          value={newWord}
-          label={`Add Synonyms to ${word}`}
-          handleSearchAction={handleSubmit}
-          buttonText={"Add To List"}
+    <div className="mt-10 card-box">
+      <SearchInput
+        isValid={isValid}
+        handleChange={handleChange}
+        value={newWord}
+        label={`Add Synonyms to ${word}`}
+        handleSearchAction={handleSubmit}
+        buttonText={"Add To List"}
+      />
+      <Link className="btn" to={ROUTES_URL.SEARCH}>
+        Back
+      </Link>
+      <Loading loading={isLoading} />
+      {synonyms && (
+        <ExistingSynonyms
+          word={word}
+          synonyms={synonyms}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          searchWord={getData}
+          groupId={groupId}
         />
-        <Link className="btn" to={ROUTES_URL.SEARCH}>
-          Back
-        </Link>
-        <Loading loading={isLoading} />
-        {synonyms && (
-          <>
-            <ExistingSynonyms
-              word={word}
-              synonyms={synonyms}
-              isLoading={isLoading}
-              setIsLoading={setIsLoading}
-              searchWord={getData}
-              groupId={groupId}
-            />
-          </>
-        )}
-      </div>
-    </section>
+      )}
+    </div>
   );
 };
 

@@ -30,28 +30,32 @@ const ExistingSynonyms = ({ word, synonyms, groupId, searchWord }) => {
   };
 
   return (
-    <div>
-      <Loading loading={isLoading} />
-      <div>Synonyms for &quot;{word}&quot;</div>
-      {synonyms.map((item, index) => (
-        <div
-          key={index}
-          className="inline-flex flex-nowrap items-center bg-white border border-gray-200 rounded-xl p-1.5"
-        >
-          <div className="whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black ">
-            {index + 1}. {item.value}{" "}
-          </div>
-
-          <span
-            onClick={() => deleteWord(item.value)}
-            className="material-symbols-outlined inline-flex items-center py-0.5 px-1.5 ms-2
-              rounded-full text-xs font-medium bg-red-500 text-white cursor-pointer"
+    <section className="w-full">
+      <h3 className="w-full text-left mb-2">
+        Synonyms for <span className="text-orange-600">{word}</span>:
+      </h3>
+      <ul className="flex justify-between flex-col gap-1">
+        {synonyms.map((item, index) => (
+          <li
+            key={item.value}
+            className="w-full flex justify-between items-center rounded-md text-sm leading-10 px-4 bg-slate-100"
           >
-            delete
-          </span>
-        </div>
-      ))}
-    </div>
+            <p>
+              {index + 1}. {item.value}
+            </p>
+
+            <button
+              onClick={() => deleteWord(item.value)}
+              className="material-symbols-outlined text-red-400 text-md hover:text-red-700 duration-300"
+            >
+              delete
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <Loading loading={isLoading} className="mt-5" />
+    </section>
   );
 };
 

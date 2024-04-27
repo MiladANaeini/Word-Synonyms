@@ -7,11 +7,11 @@ const AddSynonymForm = ({ word, synonyms }) => {
   if (!isEmpty(synonyms)) return null;
 
   return (
-    <section className="relative flex flex-col justify-center items-center mt-10">
-      <div className="font-bold">No Synonyms Found</div>
+    <section className="flex items-center justify-center flex-col gap-2">
+      <h3>No Synonyms Found</h3>
       <Link
         to={`${ROUTES_URL.ADD}?word=${word}`}
-        className="font-bold mt-2 hover:text-teal-600"
+        className="hover:text-blue-800 text-blue-600"
       >
         Click here if you Like to add synonyms to this word?
       </Link>

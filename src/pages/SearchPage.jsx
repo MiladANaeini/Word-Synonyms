@@ -13,11 +13,9 @@ const SearchPage = () => {
   const [word, setWord] = useState("");
   const [synonyms, setSynonyms] = useState(null);
   const [groupId, setGroupId] = useState(null);
-  const [isValid, setIsValid] = useState(true);
 
   const handleChange = (e) => {
     setWord(e.target.value.trim());
-    setIsValid(e.target.validity.valid);
   };
 
   useEffect(() => {
@@ -38,34 +36,33 @@ const SearchPage = () => {
   });
 
   return (
-    <section className="relative flex justify-center items-center mt-10">
-      <div className="flex-1 min-w-[50%] max-w-[80%] flex flex-col card-box">
-        <SearchInput
-          isValid={isValid}
-          handleChange={handleChange}
-          value={word}
-          label="Search for Synonyms:"
-          handleSearchAction={getData}
-          buttonText="Search"
-        />
-        <Loading loading={loading} />
-        {word && synonyms?.length ? (
-          <>
-            <Link to={`${ROUTES_URL.ADD}?word=${word}`}>
-              <button className="btn mt-2">Add Synonyms</button>
-            </Link>
-            <ExistingSynonyms
-              word={word}
-              synonyms={synonyms}
-              groupId={groupId}
-              searchWord={getData}
-            />
-          </>
-        ) : (
-          <AddSynonymForm word={word} synonyms={synonyms} />
-        )}
-      </div>
-    </section>
+    <div className="mt-10 card-box">
+      <SearchInput
+        handleChange={handleChange}
+        value={word}
+        label="Search for Synonyms:"
+        handleSearchAction={getData}
+        buttonText="Search"
+      />
+
+      <Loading loading={loading} />
+
+      {word && synonyms?.length ? (
+        <>
+          <Link className="btn" to={`${ROUTES_URL.ADD}?word=${word}`}>
+            Add Synonyms
+          </Link>
+          <ExistingSynonyms
+            word={word}
+            synonyms={synonyms}
+            groupId={groupId}
+            searchWord={getData}
+          />
+        </>
+      ) : (
+        <AddSynonymForm word={word} synonyms={synonyms} />
+      )}
+    </div>
   );
 };
 

@@ -6,12 +6,14 @@ import { ScrollToTop } from "./ScrollToTop";
 
 function Layout() {
   return (
-    <div className="roboto-medium">
+    <>
       <TopNav />
       <ScrollToTop />
       <ToastContainer theme={"colored"} />
-      <AppRoutes />
-    </div>
+      <main className="w-full flex items-center justify-center">
+        <AppRoutes />
+      </main>
+    </>
   );
 }
 
