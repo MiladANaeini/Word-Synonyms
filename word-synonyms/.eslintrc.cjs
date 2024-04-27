@@ -6,12 +6,17 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
-    "eslint:recommended",
-    "plugin:node/recommended",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parserOptions: { ecmaVersion: "latest", sourceType: "module" },
-  settings: { react: { version: "18.2" } },
+  settings: {
+    "import/resolver": {
+      node: {
+        extensions: [".js", ".jsx", ".json"],
+      },
+    },
+    react: { version: "18.2" },
+  },
   plugins: ["react-refresh", "node"],
   rules: {
     "react/jsx-no-target-blank": "off",

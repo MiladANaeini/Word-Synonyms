@@ -25,7 +25,7 @@ AddSynonymForm.propTypes = {
       value: PropTypes.string,
       groupId: PropTypes.string,
     })
-  ).isRequired,
+  ),
 };
 
 AddSynonymForm.defaultProps = {

@@ -43,9 +43,9 @@ const SearchPage = () => {
           isValid={isValid}
           handleChange={handleChange}
           value={word}
-          label={"Search for Synonyms:"}
+          label="Search for Synonyms:"
           handleSearchAction={getData}
-          buttonText={"Search"}
+          buttonText="Search"
         />
         <Loading loading={loading} />
         {word && synonyms?.length ? (

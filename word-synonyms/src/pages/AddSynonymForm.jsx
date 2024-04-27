@@ -110,7 +110,7 @@ const AddPage = () => {
           isValid={isValid}
           handleChange={handleChange}
           value={newWord}
-          label={<>Add Synonyms to {word} </>}
+          label={`Add Synonyms to ${word}`}
           handleSearchAction={handleSubmit}
           buttonText={"Add To List"}
         />
