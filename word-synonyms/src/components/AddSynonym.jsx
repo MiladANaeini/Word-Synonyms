@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { isEmpty } from "../helpers/IsEmpty";
+import PropTypes from "prop-types";
 
 const AddSynonymForm = ({ word, synonyms }) => {
   if (!isEmpty(synonyms)) return null;
@@ -17,5 +18,18 @@ const AddSynonymForm = ({ word, synonyms }) => {
     </section>
   );
 };
+AddSynonymForm.propTypes = {
+  word: PropTypes.string,
+  synonyms: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string,
+      groupId: PropTypes.string,
+    })
+  ).isRequired,
+};
 
+AddSynonymForm.defaultProps = {
+  word: "",
+  synonyms: [],
+};
 export default AddSynonymForm;

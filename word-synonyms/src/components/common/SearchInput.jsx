@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 const SearchInput = ({
   handleChange,
   value,
@@ -40,4 +41,21 @@ const SearchInput = ({
   );
 };
 
+SearchInput.propTypes = {
+  handleChange: PropTypes.func,
+  value: PropTypes.string,
+  handleSearchAction: PropTypes.func,
+  label: PropTypes.string,
+  buttonText: PropTypes.string,
+  isValid: PropTypes.bool,
+};
+
+SearchInput.defaultProps = {
+  handleChange: () => {},
+  value: "",
+  handleSearchAction: () => {},
+  label: "",
+  buttonText: "",
+  isValid: true,
+};
 export default SearchInput;

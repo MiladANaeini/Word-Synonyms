@@ -1,4 +1,3 @@
-import React from "react";
 import TopNav from "./TopNav";
 import AppRoutes from "../../routes/Routes";
 import "react-toastify/dist/ReactToastify.css";
