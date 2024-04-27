@@ -30,7 +30,7 @@ const SearchInput = ({
           type="submit"
           onClick={handleSearchAction}
           disabled={!value}
-          className={!!value ? "btn" : "btn-disabled"}
+          className={`flex-1 ${!!value ? "btn" : "btn-disabled"}`}
         >
           {buttonText}
         </button>
