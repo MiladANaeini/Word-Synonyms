@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { v4: uuid } = require("uuid");
-
 const fs = require("fs");
 const path = require("path");
 
@@ -46,7 +45,7 @@ router.post("/", (req, res) => {
       });
     }
     //add the new word and the synonym to the data
-    groupId = uuid();
+    const groupId = uuid();
     jsonData.words.push({ value: word, groupId: groupId });
     jsonData.words.push({ value: synonym, groupId: groupId });
     const newSynonym = [{ value: synonym, groupId: groupId }];
