@@ -25,6 +25,7 @@ const AppRoutes = () => {
           path={ROUTES_URL.HOME}
           element={<HomePage navigate={navigate} />}
         />
+        <Route path="/*" element={<HomePage navigate={navigate} />} />
       </Routes>
     </Suspense>
   );
