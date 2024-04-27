@@ -1,10 +1,11 @@
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router";
-import HomePage from "../pages/HomePage";
-import SearchPage from "../pages/SearchPage";
-import AddPage from "../pages/AddSynonymForm";
 import { Loading } from "../components/common/Loading";
+
+const HomePage = React.lazy(() => import("../pages/HomePage"));
+const SearchPage = React.lazy(() => import("../pages/SearchPage"));
+const AddPage = React.lazy(() => import("../pages/AddSynonymForm"));
 
 const AppRoutes = () => {
   const navigate = useNavigate();
