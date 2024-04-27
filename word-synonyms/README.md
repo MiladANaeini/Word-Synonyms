@@ -13,6 +13,3 @@ madule saas
 UI
 web vitals
 accessability
-prettier and Eslint
-
-validation space
