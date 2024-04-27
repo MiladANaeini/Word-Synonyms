@@ -10,9 +10,7 @@ function Layout() {
       <TopNav />
       <ScrollToTop />
       <ToastContainer theme={"colored"} />
-      <div>
-        <AppRoutes />
-      </div>
+      <AppRoutes />
     </div>
   );
 }

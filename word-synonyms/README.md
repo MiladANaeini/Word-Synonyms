@@ -12,4 +12,3 @@ test
 madule saas
 UI
 web vitals
-accessability
