@@ -4,7 +4,7 @@ import { ROUTES_URL } from "../constants/RoutesUrl";
 const HomePage = () => {
   return (
     <div className="mt-10 card-box">
-      <h1 className="text-2xl font-bold">Welcome To The Words Synonyms</h1>
+      <h1 className="text-2xl">Welcome To The Words Synonyms</h1>
       <p className="text-sm font-normal leading-6">
         The Words Synonym is an app where you are able to search for synonyms of
         words.
