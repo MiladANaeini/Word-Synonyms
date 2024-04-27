@@ -9,16 +9,16 @@ body {
 
 @layer utilities {
   .btn {
-    @apply text-white bg-gradient-to-r from-[#00c6ff] to-[#0072ff] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center;
+    @apply text-white bg-gradient-to-r from-[#00c6ff] to-[#1470b6] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center;
   }
   .btn-disabled {
-    @apply text-gray-200 bg-gradient-to-r from-[#e76363] to-[#0072ff] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center;
+    @apply text-gray-200 bg-gradient-to-r from-[#e76363] to-[#1470b6] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center;
   }
   .header {
-    @apply flex justify-between items-center sm:px-16 px-8 py-4 max-w-full mx-auto  top-0 bg-transparent z-10 right-0 left-0 bg-[#fff685];
+    @apply flex justify-between items-center sm:px-16 px-8 py-4 max-w-full mx-auto  top-0  z-10 right-0 left-0 bg-[#f5f5f5f4];
   }
   .input {
-    @apply bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-2.5 font-normal;
+    @apply bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  font-normal;
   }
   .cta {
     @apply w-full flex items-center md:flex-row flex-col sm:mt-16 mt-8 gap-7;
@@ -28,19 +28,17 @@ body {
     @apply font-bold flex-1 max-md:text-center;
   }
   .info-box {
-    @apply relative flex text-black flex-col gap-3 neo-brutalism-blue pt-1 pb-1 px-1 mt-2 text-center;
+    @apply relative flex text-wrap text-white bg-gradient-to-r from-[#1470b6] to-[#1470b6] flex-col gap-3 neo-brutalism-blue pt-1 pb-1 px-1 mt-2 text-center;
   }
   .card-box {
-    @apply relative flex text-black flex-col gap-10 card-white  pt-1 pb-1 px-1 mt-2 w-3/4 h-3/5  text-center;
+    @apply relative flex text-wrap text-black flex-col gap-4 card-white w-10/12 pt-1 pb-5 px-2 mt-2 container;
   }
 }
 .neo-brutalism-blue {
-  background: #2b77e7;
   position: relative;
   border-radius: 10px;
   border: #2b77e7;
-  box-shadow: 0.6vmin 0.6vmin #336cc1, 1vmin 1vmin #0092db, 1vmin 1vmin #0092db,
-    0.65vmin 1vmin #0092db, 1vmin 0.65vmin #0092db;
+  box-shadow: 0.25rem 0.25rem 0.25rem rgba(52, 185, 229, 0.434);
 }
 .card-white {
   background: #ffffff;

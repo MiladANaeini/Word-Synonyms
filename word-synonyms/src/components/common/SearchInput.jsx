@@ -14,24 +14,22 @@ const SearchInput = ({
 
   return (
     <>
-      <label className="text-black-500 font-semibold">
-        {label}
-        <input
-          type="text"
-          name="word"
-          className={`input ${isValid ? "" : "input-invalid"}`}
-          placeholder="Please Enter The Word"
-          pattern="[a-zA-Z0-9]+"
-          onChange={handleChange}
-          value={value}
-          onKeyDown={handleKeyPress}
-        />
-      </label>
+      <label className="text-black-500 font-semibold">{label}</label>
+      <input
+        type="text"
+        name="word"
+        className={`input ${isValid ? "" : "input-invalid"}`}
+        placeholder="Please Enter The Word"
+        pattern=".*\S.*"
+        onChange={handleChange}
+        value={value}
+        onKeyDown={handleKeyPress}
+      />
       <button
         type="submit"
         onClick={handleSearchAction}
         disabled={!isValid || !value}
-        className={`mt-2 ${isValid ? "btn" : "btn-disabled"} ${
+        className={`mt-1 ${isValid ? "btn" : "btn-disabled"} ${
           value ? "btn" : "btn-disabled"
         }`}
       >

@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
-    <div className="flex flex-col justify-center items-center h-96">
-      <div className="card-box ">
+    <div className="flex flex-col justify-center items-center">
+      <div className="card-box">
         <h1 className="text-3xl font-bold mt-6">
           Welcome To The Words Synonyms
         </h1>
-        <p className="mt-5">
+        <p className="mt-4 text-center">
           The Words Synonym is an app where you are able to search for synonyms
           of words.
           <br />

@@ -32,16 +32,21 @@ const ExistingSynonyms = ({ word, synonyms, groupId, searchWord }) => {
       <Loading loading={isLoading} />
       <div>Synonyms for "{word}"</div>
       {synonyms.map((item, index) => (
-        <div className="info-box" key={index}>
-          <p className="cta-text">
-            {index + 1}. {item.value}
-          </p>
-          <h4
-            className="text-red-300 cursor-pointer"
-            onClick={() => deleteWord(item.value)}
+        <div className="inline-flex flex-nowrap items-center bg-white border border-gray-200 rounded-xl p-1.5">
+          <div
+            key={index}
+            className="whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black "
           >
-            Delete
-          </h4>
+            {index + 1}. {item.value}{" "}
+          </div>
+
+          <span
+            onClick={() => deleteWord(item.value)}
+            className="material-symbols-outlined inline-flex items-center py-0.5 px-1.5 ms-2
+              rounded-full text-xs font-medium bg-red-500 text-white"
+          >
+            delete
+          </span>
         </div>
       ))}
     </div>

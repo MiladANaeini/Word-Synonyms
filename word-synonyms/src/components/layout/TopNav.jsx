@@ -11,7 +11,7 @@ const TopNav = () => {
         <NavLink
           to="/search"
           className={({ isActive }) =>
-            isActive ? "text-blue-500" : "text-black"
+            isActive ? "text-blue-800" : "text-black"
           }
         >
           Search

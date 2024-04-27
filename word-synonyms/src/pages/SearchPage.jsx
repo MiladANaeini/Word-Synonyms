@@ -14,7 +14,7 @@ const SearchPage = () => {
   const [isValid, setIsValid] = useState(true);
 
   const handleChange = (e) => {
-    setWord(e.target.value);
+    setWord(e.target.value.trim());
     setIsValid(e.target.validity.valid);
   };
 
@@ -25,7 +25,7 @@ const SearchPage = () => {
   }, [word]);
 
   const { getData, loading } = useFetchData({
-    url: `${SEARCH_WORD_URL}/${word.trim()}`,
+    url: `${SEARCH_WORD_URL}/${word}`,
     enable: false,
     callBack: (res) => {
       setSynonyms(res);
@@ -37,7 +37,7 @@ const SearchPage = () => {
 
   return (
     <section className="relative flex justify-center items-center mt-10">
-      <div className="flex-1 min-w-[50%] max-w-[80%] flex flex-col">
+      <div className="flex-1 min-w-[50%] max-w-[80%] flex flex-col card-box">
         <SearchInput
           isValid={isValid}
           handleChange={handleChange}
