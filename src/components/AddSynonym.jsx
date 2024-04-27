@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { isEmpty } from "../helpers/IsEmpty";
 import PropTypes from "prop-types";
-import { ROUTES_URL } from "../constants/routes_url";
+import { ROUTES_URL } from "../constants/RoutesUrl";
 
 const AddSynonymForm = ({ word, synonyms }) => {
   if (!isEmpty(synonyms)) return null;

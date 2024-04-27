@@ -4,10 +4,10 @@ import AddSynonymForm from "../components/AddSynonym";
 import { Link } from "react-router-dom";
 import { isEmpty } from "../helpers/IsEmpty";
 import { Loading } from "../components/common/Loading";
-import { SEARCH_WORD_URL } from "../constants/constants";
+import { SEARCH_WORD_URL } from "../constants/ApiUrls";
 import SearchInput from "../components/common/SearchInput";
 import useFetchData from "../components/hooks/useFetchData";
-import { ROUTES_URL } from "../constants/routes_url";
+import { ROUTES_URL } from "../constants/RoutesUrl";
 
 const SearchPage = () => {
   const [word, setWord] = useState("");

@@ -6,13 +6,13 @@ import { isEmpty } from "../helpers/IsEmpty";
 import {
   SEARCH_WORD_URL,
   ADD_NEW_WORD_OR_SYNONYM_URL,
-} from "../constants/constants";
+} from "../constants/ApiUrls";
 import { ToastManager } from "../components/common/ToastManager";
 import SearchInput from "../components/common/SearchInput";
 import { Loading } from "../components/common/Loading";
 import useFetchData from "../components/hooks/useFetchData";
 import { postApiCall, putApiCall } from "../helpers/ApiCall";
-import { ROUTES_URL } from "../constants/routes_url";
+import { ROUTES_URL } from "../constants/RoutesUrl";
 import { useNavigate } from "react-router-dom";
 
 const AddPage = () => {
