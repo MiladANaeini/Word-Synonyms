@@ -7,6 +7,7 @@ import { Loading } from "../components/common/Loading";
 import { SEARCH_WORD_URL } from "../constants/constants";
 import SearchInput from "../components/common/SearchInput";
 import useFetchData from "../components/hooks/useFetchData";
+import { ROUTES_URL } from "../constants/routes_url";
 
 const SearchPage = () => {
   const [word, setWord] = useState("");
@@ -50,12 +51,7 @@ const SearchPage = () => {
         <Loading loading={loading} />
         {word && synonyms?.length ? (
           <>
-            <Link
-              to={`/add/${word}`}
-              state={{
-                word: word,
-              }}
-            >
+            <Link to={`${ROUTES_URL.ADD}?word=${word}`}>
               <button className="btn mt-2">Add Synonyms</button>
             </Link>
             <ExistingSynonyms

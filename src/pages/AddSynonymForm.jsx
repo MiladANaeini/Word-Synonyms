@@ -12,8 +12,11 @@ import SearchInput from "../components/common/SearchInput";
 import { Loading } from "../components/common/Loading";
 import useFetchData from "../components/hooks/useFetchData";
 import { postApiCall, putApiCall } from "../helpers/ApiCall";
+import { ROUTES_URL } from "../constants/routes_url";
+import { useNavigate } from "react-router-dom";
 
 const AddPage = () => {
+  const navigate = useNavigate();
   const [newWord, setNewWord] = useState("");
   const [synonyms, setSynonyms] = useState(null);
   const [groupId, setGroupId] = useState(null);
@@ -21,8 +24,11 @@ const AddPage = () => {
   const [isValid, setIsValid] = useState(true);
 
   const location = useLocation();
-  const path = location.pathname.split("/");
-  const word = path[path.length - 1];
+  const urlParams = new URLSearchParams(location.search);
+  const word = urlParams.get("word") || "";
+  if (!word) {
+    navigate(ROUTES_URL.SEARCH);
+  }
 
   // Caling Get Data
   const { loading, getData } = useFetchData({
@@ -114,8 +120,8 @@ const AddPage = () => {
           handleSearchAction={handleSubmit}
           buttonText={"Add To List"}
         />
-        <Link to={`/search`}>
-          <button className="btn">Back</button>
+        <Link className="btn" to={ROUTES_URL.SEARCH}>
+          Back
         </Link>
         <Loading loading={isLoading} />
         {synonyms && (
