@@ -3,25 +3,26 @@ import { ToastManager } from "../components/common/ToastManager";
 import { Loading } from "./common/Loading";
 import { deleteApiCall } from "../helpers/ApiCall";
 import PropTypes from "prop-types";
-
+import { SEARCH_WORD_URL } from "../constants/ApiUrls";
+import { TOAST_ERROR, TOAST_SUCCESS } from "../constants/Constants";
 const ExistingSynonyms = ({ word, synonyms, groupId, searchWord }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   //API Calls
   const deleteWord = (word) => {
     setIsLoading(true);
-    deleteApiCall(`http://localhost:3000/words/${groupId}/${word}`)
+    deleteApiCall(`${SEARCH_WORD_URL}/${groupId}/${word}`)
       .then(() => {
         ToastManager({
           text: "Synonym was removed with success",
-          type: "success",
+          type: TOAST_SUCCESS,
         });
         searchWord();
       })
       .catch((error) => {
         ToastManager({
           text: error.response?.data.error,
-          type: "error",
+          type: TOAST_ERROR,
         });
       })
       .finally(() => {
@@ -53,7 +54,6 @@ const ExistingSynonyms = ({ word, synonyms, groupId, searchWord }) => {
           </li>
         ))}
       </ul>
-
       <Loading loading={isLoading} className="mt-5" />
     </section>
   );

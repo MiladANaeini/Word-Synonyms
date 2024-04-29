@@ -14,6 +14,7 @@ import useFetchData from "../components/hooks/useFetchData";
 import { postApiCall, putApiCall } from "../helpers/ApiCall";
 import { ROUTES_URL } from "../constants/RoutesUrl";
 import { useNavigate } from "react-router-dom";
+import { TOAST_ERROR, TOAST_SUCCESS } from "../constants/Constants";
 
 const AddPage = () => {
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ const AddPage = () => {
       .then((res) => {
         ToastManager({
           text: "The Word and it's Synonym were added with success",
-          type: "success",
+          type: TOAST_SUCCESS,
         });
         setGroupId(res.data.groupId);
         setSynonyms(res.data.newSynonym);
@@ -69,7 +70,7 @@ const AddPage = () => {
       .catch((error) => {
         ToastManager({
           text: error.response?.data.error,
-          type: "error",
+          type: TOAST_ERROR,
         });
       })
       .finally(() => {
