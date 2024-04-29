@@ -1,6 +1,5 @@
 const express = require("express"); //import the package into the file
 const serverless = require("serverless-http");
-
 const cors = require("cors");
 const app = express();
 
@@ -13,10 +12,9 @@ const deleteRoutes = require("./routes/deletes");
 //Middlewares
 app.use(cors());
 //CORS allows you to load resources from different origins
-app.use("/.netlify/server/app", router);
 
 //ROUTES
-app.use("/words", getRoutes);
+app.use("/api/words", getRoutes);
 app.use("/add", postRoutes);
 app.use("/add", putRoutes);
 app.use("/words", deleteRoutes);

@@ -4,16 +4,12 @@
 
 [[redirects]]
 from = "/assets/*"
-to = "/assets"
+to = "/assets:splat"
 status = 200
 
 [[redirects]]
-from = "/data.json"
-to = "/data.json:splat"
-status = 200
-
-[[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
+  force = true
+  from = "/api/*"
+  status = 200
+  to = "/.netlify/sever/app/:splat"
 
