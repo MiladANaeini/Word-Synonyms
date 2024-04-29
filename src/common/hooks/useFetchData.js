@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getApiCall } from "../../helpers/ApiCall";
+import { getApiCall } from "../../common/helpers/ApiCall";
 
 const useFetchData = ({
   url = "",

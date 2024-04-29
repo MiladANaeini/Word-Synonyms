@@ -2,19 +2,19 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ExistingSynonyms from "../components/ExistingSynonyms";
-import { isEmpty } from "../helpers/IsEmpty";
+import { isEmpty } from "../common/helpers/IsEmpty";
 import {
   SEARCH_WORD_URL,
   ADD_NEW_WORD_OR_SYNONYM_URL,
-} from "../constants/ApiUrls";
-import { ToastManager } from "../components/common/ToastManager";
-import SearchInput from "../components/common/SearchInput";
-import { Loading } from "../components/common/Loading";
-import useFetchData from "../components/hooks/useFetchData";
-import { postApiCall, putApiCall } from "../helpers/ApiCall";
-import { ROUTES_URL } from "../constants/RoutesUrl";
+} from "../common/constants/ApiUrls";
+import { ToastManager } from "../components/shared/ToastManager";
+import SearchInput from "../components/shared/SearchInput";
+import { Loading } from "../components/shared/Loading";
+import useFetchData from "../common/hooks/useFetchData";
+import { postApiCall, putApiCall } from "../common/helpers/ApiCall";
+import { ROUTES_URL } from "../common/constants/RoutesUrl";
 import { useNavigate } from "react-router-dom";
-import { TOAST_ERROR, TOAST_SUCCESS } from "../constants/Constants";
+import { TOAST_ERROR, TOAST_SUCCESS } from "../common/constants/Constants";
 
 const AddPage = () => {
   const navigate = useNavigate();

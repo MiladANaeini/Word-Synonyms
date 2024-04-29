@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import ExistingSynonyms from "../components/ExistingSynonyms";
 import AddSynonymForm from "../components/AddSynonym";
 import { Link } from "react-router-dom";
-import { isEmpty } from "../helpers/IsEmpty";
-import { Loading } from "../components/common/Loading";
-import { SEARCH_WORD_URL } from "../constants/ApiUrls";
-import SearchInput from "../components/common/SearchInput";
-import useFetchData from "../components/hooks/useFetchData";
-import { ROUTES_URL } from "../constants/RoutesUrl";
+import { isEmpty } from "../common/helpers/IsEmpty";
+import { Loading } from "../components/shared/Loading";
+import { SEARCH_WORD_URL } from "../common/constants/ApiUrls";
+import SearchInput from "../components/shared/SearchInput";
+import useFetchData from "../common/hooks/useFetchData";
+import { ROUTES_URL } from "../common/constants/RoutesUrl";
 
 const SearchPage = () => {
   const [word, setWord] = useState("");

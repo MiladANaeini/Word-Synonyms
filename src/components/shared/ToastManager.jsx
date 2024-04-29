@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-import { TOAST_ERROR, TOAST_SUCCESS } from "../../constants/Constants";
+import { TOAST_ERROR, TOAST_SUCCESS } from "../../common/constants/Constants";
 
 export function ToastManager({ text, type }) {
   if (type == TOAST_SUCCESS) {

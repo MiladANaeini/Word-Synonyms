@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ROUTES_URL } from "../constants/RoutesUrl";
+import { ROUTES_URL } from "../common/constants/RoutesUrl";
 
 const HomePage = () => {
   return (

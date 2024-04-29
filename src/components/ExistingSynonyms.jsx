@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { ToastManager } from "../components/common/ToastManager";
-import { Loading } from "./common/Loading";
-import { deleteApiCall } from "../helpers/ApiCall";
+import { ToastManager } from "./shared/ToastManager";
+import { Loading } from "./shared/Loading";
+import { deleteApiCall } from "../common/helpers/ApiCall";
 import PropTypes from "prop-types";
-import { SEARCH_WORD_URL } from "../constants/ApiUrls";
-import { TOAST_ERROR, TOAST_SUCCESS } from "../constants/Constants";
+import { SEARCH_WORD_URL } from "../common/constants/ApiUrls";
+import { TOAST_ERROR, TOAST_SUCCESS } from "../common/constants/Constants";
 
 const ExistingSynonyms = ({ word, synonyms, groupId, searchWord }) => {
   const [isLoading, setIsLoading] = useState(false);
