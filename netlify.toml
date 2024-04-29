@@ -11,5 +11,5 @@ status = 200
   force = true
   from = "/api/*"
   status = 200
-  to = "/.netlify/sever/app/:splat"
+  to = "/sever/app/:splat"
 
