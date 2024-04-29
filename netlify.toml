@@ -5,4 +5,4 @@
   force = true
   from = "/app/*"
   status = 200
-  to = "./servet/app/:splat"
+  to = "./server/app/:splat"
