@@ -1,8 +1,16 @@
 [functions]
   external_node_modules = ["express"]
   node_bundler = "esbuild"
+
 [[redirects]]
-  force = true
-  from = "/app/*"
-  status = 200
-  to = "./server/app/:splat"
+from = "/*"
+force = true
+to = "/index.html"
+status = 200
+
+[[redirects]]
+force = true
+from = "/api/*"
+to = "/server/app/:splat"
+status = 200
+
