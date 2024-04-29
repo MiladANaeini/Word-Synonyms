@@ -14,7 +14,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path={ROUTES_URL.SEARCH} element={<SearchPage />} />
         <Route path={ROUTES_URL.ADD} element={<AddPage />} />
-        <Route path={ROUTES_URL.HOME} element={<HomePage />} />
+        <Route exact path={ROUTES_URL.HOME} element={<HomePage />} />
         <Route path="/*" element={<HomePage />} />
       </Routes>
     </Suspense>
