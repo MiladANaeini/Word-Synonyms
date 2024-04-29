@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const Loading = ({ loading = false, className }) => {
+export const Loading = ({ loading, className }) => {
   if (!loading) {
     return null;
   }

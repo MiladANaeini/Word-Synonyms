@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { ScrollToTop } from "./ScrollToTop";
 
-function Layout() {
+const Layout = () => {
   return (
     <>
       <TopNav />
@@ -15,6 +15,6 @@ function Layout() {
       <ScrollToTop />
     </>
   );
-}
+};
 
 export default Layout;

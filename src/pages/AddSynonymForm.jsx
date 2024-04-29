@@ -31,7 +31,7 @@ const AddPage = () => {
     navigate(ROUTES_URL.SEARCH);
   }
 
-  // Caling Get Data
+  // Calling Get Data
   const { loading, getData } = useFetchData({
     url: `${SEARCH_WORD_URL}/${word.trim()}`,
     enable: true,
@@ -50,7 +50,8 @@ const AddPage = () => {
     setNewWord(e.target.value.trim());
     setIsValid(e.target.validity.valid);
   };
-  // Calling post api
+
+  // Calling create api
   const createList = () => {
     setIsLoading(true);
     const payload = {
@@ -78,6 +79,7 @@ const AddPage = () => {
       });
   };
 
+  // Calling update api
   const updateList = async () => {
     setIsLoading(true);
     putApiCall(`${ADD_NEW_WORD_OR_SYNONYM_URL}/${groupId}`, {

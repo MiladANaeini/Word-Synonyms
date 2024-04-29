@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { Loading } from "../components/common/Loading";
 import { ROUTES_URL } from "../constants/RoutesUrl";
 
-// TODO
+// Used Lazy loading to improve performance
 const HomePage = React.lazy(() => import("../pages/HomePage"));
 const SearchPage = React.lazy(() => import("../pages/SearchPage"));
 const AddPage = React.lazy(() => import("../pages/AddSynonymForm"));
@@ -12,7 +12,7 @@ const AddPage = React.lazy(() => import("../pages/AddSynonymForm"));
 const AppRoutes = () => {
   const navigate = useNavigate();
   return (
-    <Suspense fallback={Loading(true)}>
+    <Suspense fallback={<Loading loading={true} />}>
       <Routes>
         <Route
           path={ROUTES_URL.SEARCH}

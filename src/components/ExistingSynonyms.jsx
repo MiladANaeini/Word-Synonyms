@@ -5,6 +5,7 @@ import { deleteApiCall } from "../helpers/ApiCall";
 import PropTypes from "prop-types";
 import { SEARCH_WORD_URL } from "../constants/ApiUrls";
 import { TOAST_ERROR, TOAST_SUCCESS } from "../constants/Constants";
+
 const ExistingSynonyms = ({ word, synonyms, groupId, searchWord }) => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -44,7 +45,6 @@ const ExistingSynonyms = ({ word, synonyms, groupId, searchWord }) => {
             <p>
               {index + 1}. {item.value}
             </p>
-
             <button
               onClick={() => deleteWord(item.value)}
               className="material-symbols-outlined text-red-400 text-md hover:text-red-700 duration-300"

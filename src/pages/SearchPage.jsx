@@ -44,9 +44,7 @@ const SearchPage = () => {
         handleSearchAction={getData}
         buttonText="Search"
       />
-
       <Loading loading={loading} />
-
       {word && synonyms?.length ? (
         <>
           <Link className="btn" to={`${ROUTES_URL.ADD}?word=${word}`}>
