@@ -4,12 +4,12 @@
 
 [[redirects]]
 from = "/assets/*"
-to = "/assets/:splat"
+to = "/assets"
 status = 200
 
 [[redirects]]
 from = "/data.json"
-to = "/data.json"
+to = "/data.json:splat"
 status = 200
 
 [[redirects]]

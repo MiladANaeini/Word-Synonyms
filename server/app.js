@@ -13,7 +13,7 @@ const deleteRoutes = require("./routes/deletes");
 //Middlewares
 app.use(cors());
 //CORS allows you to load resources from different origins
-app.use("/app/", router);
+app.use("/.netlify/server/app", router);
 
 //ROUTES
 app.use("/words", getRoutes);
