@@ -3,14 +3,12 @@
   node_bundler = "esbuild"
 
 [[redirects]]
-force = true
-from = "/*"
-to = "/index.html"
+from = "/assets/*"
+to = "/assets/:splat"
 status = 200
 
 [[redirects]]
-force = true
-from = "/app/*"
-to = "/server/app/:splat"
+from = "/*"
+to = "/index.html"
 status = 200
 
