@@ -1,4 +1,6 @@
 const express = require("express"); //import the package into the file
+const serverless = require("serverless-http");
+
 const cors = require("cors");
 const app = express();
 
@@ -10,15 +12,14 @@ const deleteRoutes = require("./routes/deletes");
 
 //Middlewares
 app.use(cors());
-app.use(express.json());
+//CORS allows you to load resources from different origins
+app.use("/app/", router);
+
+//ROUTES
 app.use("/words", getRoutes);
 app.use("/add", postRoutes);
 app.use("/add", putRoutes);
 app.use("/words", deleteRoutes);
-//CORS allows you to load resources from different origins
-//ROUTES
 
 //Start listening to the server
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
-});
+module.exports.handler = serverless(app);
