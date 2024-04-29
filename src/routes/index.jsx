@@ -12,7 +12,7 @@ const AddPage = React.lazy(() => import("../pages/AddSynonymForm"));
 const AppRoutes = () => {
   const navigate = useNavigate();
   return (
-    <Suspense fallback={Loading(true)}>
+    <Suspense fallback={<Loading loading={true} />}>
       <Routes>
         <Route
           path={ROUTES_URL.SEARCH}
