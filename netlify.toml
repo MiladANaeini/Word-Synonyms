@@ -10,7 +10,7 @@ status = 200
 
 [[redirects]]
 force = true
-from = "/api/*"
+from = "/app/*"
 to = "/server/app/:splat"
 status = 200
 
