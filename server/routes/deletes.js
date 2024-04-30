@@ -44,8 +44,6 @@ router.delete("/:groupId/:word", (req, res) => {
         (element) => element.groupId !== groupId
       );
     } else {
-      console.log("word", word);
-
       jsonData.words = jsonData.words.filter(
         (element) =>
           element.value.toLocaleLowerCase() !== word.toLocaleLowerCase()
