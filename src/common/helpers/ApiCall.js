@@ -1,7 +1,7 @@
 import axios from "axios";
 const api = axios.create();
 api.defaults.headers["ngrok-skip-browser-warning"] = 1234;
-api.defaults.headers[Access - Control - Allow - Origin] = "*";
+api.defaults.headers["Access-Control-Allow-Origin"] = "*";
 
 export const postApiCall = async (url, body) => {
   return await api.post(url, body);
