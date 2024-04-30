@@ -11,7 +11,7 @@ const AddPage = React.lazy(() => import("../pages/AddSynonymForm"));
 const AppRoutes = () => {
   return (
     <Suspense fallback={<Loading loading={true} />}>
-      <Routes basename={`/${BASE_PATH}`}>
+      <Routes basename={BASE_PATH}>
         <Route path={ROUTES_URL.SEARCH} element={<SearchPage />} />
         <Route path={ROUTES_URL.ADD} element={<AddPage />} />
         <Route path={ROUTES_URL.HOME} element={<HomePage />} />
