@@ -72,6 +72,6 @@ The website is fully responsive, meaning it looks and functions seamlessly acros
 
 ### Demo
 
-You can check out a live demo of this project by visiting https://miladanaeini.github.io/Word-Synonyms/
+You can check out a live demo of this project by visiting https://word-synonyms.vercel.app/Word-Synonyms
 
 Feel free to explore and enjoy.
